@@ -1,10 +1,21 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme } from "@mui/material/styles";
 
-export const colors = {};
+export const defaultContentPadding = {
+  paddingLeft: {
+    xs: 2,
+    md: "4%",
+    xl: "8%",
+  },
+  paddingRight: {
+    xs: 2,
+    md: "4%",
+    xl: "8%",
+  },
+};
 
 export default createTheme({
   palette: {
-    type: "dark",
+    mode: "dark",
     secondary: {
       main: "rgba(255, 255, 255, 0.1)",
       contrastText: "white",

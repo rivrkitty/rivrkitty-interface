@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
+import makeStyles from "@mui/styles/makeStyles";
+import Divider from "@mui/material/Divider";
 import clsx from "clsx";
 import Header from "./Header";
 import Background from "./Background/Background";
@@ -46,7 +46,12 @@ export default function AppContainer(props: Props) {
         className={clsx(classes.background, classes.overBackground)}
       />
       <Header className={clsx(classes.header, classes.overBackground)} />
-      <Divider className={classes.overBackground} />
+      <Divider
+        sx={{
+          zIndex: 1,
+          // backgroundImage: "linear-gradient(to right, #EA8478, #5FB0B4)",
+        }}
+      />
       <div className={clsx(classes.content, classes.overBackground)}>
         {children}
       </div>

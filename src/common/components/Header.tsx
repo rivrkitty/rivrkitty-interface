@@ -1,12 +1,13 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
+import makeStyles from "@mui/styles/makeStyles";
+import Link from "@mui/material/Link";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import WalletButton from "./WalletButton";
 import logo from "../../assets/logo.png";
+import { defaultContentPadding } from "../../utils/theme";
 
 const MENU_ITEMS = [
   {
@@ -45,16 +46,30 @@ export default function Header(props: { className?: string }) {
   const { t } = useTranslation();
 
   return (
-    <div className={clsx(classes.container, props.className)}>
+    <Box
+      className={props.className}
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "secondary.main",
+        ...defaultContentPadding,
+      }}
+    >
       <img className={classes.logo} src={logo} alt="RivrKitty" />
       {MENU_ITEMS.map((i) => (
-        <Link className={classes.link} key={i.titleKey} href={i.path || "#"}>
+        <Link
+          className={classes.link}
+          key={i.titleKey}
+          href={i.path || "#"}
+          underline="hover"
+        >
           {t(i.titleKey)}
         </Link>
       ))}
       <Divider />
       <Box flex={1} />
       <WalletButton />
-    </div>
+    </Box>
   );
 }

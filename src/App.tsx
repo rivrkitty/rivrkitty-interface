@@ -2,13 +2,20 @@ import React from "react";
 import { Provider } from "react-redux";
 import { Helmet } from "react-helmet";
 import { Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, Theme, StyledEngineProvider } from "@mui/material/styles";
 import theme from "./utils/theme";
 import configureStore from "./utils/configureStore";
 import { configureTranslation } from "./utils/i18n";
 import "./App.css";
 import AppContainer from "./common/components/AppContainer";
 import Farm from "./farm/Farm";
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 configureTranslation();
 
@@ -18,13 +25,15 @@ function App() {
   return (
     <Provider store={store}>
       <Helmet></Helmet>
-      <ThemeProvider theme={theme}>
-        <AppContainer>
-          <Routes>
-            <Route path="/" element={<Farm />} />
-          </Routes>
-        </AppContainer>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <AppContainer>
+            <Routes>
+              <Route path="/" element={<Farm />} />
+            </Routes>
+          </AppContainer>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </Provider>
   );
 }

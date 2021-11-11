@@ -3,6 +3,10 @@
     "menuFarms": "Farms",
     "menuNFTs": "NFTs (coming soon)",
     "menuDocumentation": "Documentation",
-    "walletConnect": "Connect to a wallet"
+    "walletConnect": "Connect to a wallet",
+    "farmsTitle": "Farms",
+    "farmsDescription": "Stake LP tokens to earn rewards in $PAWS",
+    "farmsHoldingTitle": "My $PAWS Holdings",
+    "farmsPendingTitle": "Pending $PAWS Rewards"
   }
 }
