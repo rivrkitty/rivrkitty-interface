@@ -7,6 +7,8 @@
     "farmsTitle": "Farms",
     "farmsDescription": "Stake LP tokens to earn rewards in $PAWS",
     "farmsHoldingTitle": "My $PAWS Holdings",
-    "farmsPendingTitle": "Pending $PAWS Rewards"
+    "farmsPendingTitle": "Pending $PAWS Rewards",
+    "farmsPoolRate": "Pool rate",
+    "farmsPoolRateDetails": "{{amount}} {{token}} / week"
   }
 }

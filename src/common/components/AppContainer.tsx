@@ -49,7 +49,9 @@ export default function AppContainer(props: Props) {
       <Divider
         sx={{
           zIndex: 1,
-          // backgroundImage: "linear-gradient(to right, #EA8478, #5FB0B4)",
+          height: "1px",
+          background:
+            "linear-gradient(90deg, rgba(234,132,120,1) 0%, rgba(95,176,180,1) 100%)",
         }}
       />
       <div className={clsx(classes.content, classes.overBackground)}>

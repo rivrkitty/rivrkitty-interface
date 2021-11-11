@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Summary from "./components/Summary";
 import { defaultContentPadding } from "../utils/theme";
+import List from "./components/List";
 
 export default function Farm() {
   return (
@@ -17,7 +18,7 @@ export default function Farm() {
         <Summary />
       </Grid>
       <Grid item xs={12} md={9}>
-        <div />
+        <List />
       </Grid>
     </Grid>
   );

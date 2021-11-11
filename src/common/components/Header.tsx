@@ -3,7 +3,6 @@ import makeStyles from "@mui/styles/makeStyles";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import WalletButton from "./WalletButton";
 import logo from "../../assets/logo.png";

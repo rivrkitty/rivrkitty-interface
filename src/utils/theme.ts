@@ -20,5 +20,12 @@ export default createTheme({
       main: "rgba(255, 255, 255, 0.1)",
       contrastText: "white",
     },
+    background: {
+      default: "#0E141D",
+      paper: "#141B27",
+    },
+  },
+  shape: {
+    borderRadius: 12,
   },
 });
