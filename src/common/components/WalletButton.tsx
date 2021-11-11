@@ -1,16 +1,12 @@
 import React from "react";
 import Web3Modal from "web3modal";
 import { makeStyles } from "@material-ui/core/styles";
-import PowerIcon from "@material-ui/icons/Power";
 import Hidden from "@material-ui/core/Hidden";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import { useTranslation } from "react-i18next";
-import { createWeb3Modal } from "../web3/createWeb3Modal";
-import {
-  useDisconnectWallet,
-  useConnectWallet,
-} from "../common/redux/selectors";
+import { createWeb3Modal } from "../../web3/createWeb3Modal";
+import { useDisconnectWallet, useConnectWallet } from "../redux/selectors";
+import RoundedButton from "./RoundedButton";
 const { renderIcon } = require("@download/blockies");
 
 const useStyles = makeStyles({
@@ -65,8 +61,10 @@ export default function WalletButton() {
 
   return (
     <>
-      <Button
+      <RoundedButton
         disableElevation
+        variant="contained"
+        color="secondary"
         className={classes.button}
         onClick={connected ? disconnectWalletCallback : connectWalletCallback}
       >
@@ -86,11 +84,10 @@ export default function WalletButton() {
           </>
         ) : (
           <>
-            <PowerIcon />
             <Hidden xsDown>{t("walletConnect")}</Hidden>
           </>
         )}
-      </Button>
+      </RoundedButton>
     </>
   );
 }

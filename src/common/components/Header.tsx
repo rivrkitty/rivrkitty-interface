@@ -6,7 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import WalletButton from "./WalletButton";
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 const MENU_ITEMS = [
   {
