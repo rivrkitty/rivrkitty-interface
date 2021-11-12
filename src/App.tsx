@@ -14,6 +14,7 @@ import { configureTranslation } from "./utils/i18n";
 import "./App.css";
 import AppContainer from "./common/components/AppContainer";
 import Farm from "./farms/Farms";
+import { SnackbarProvider } from "notistack";
 
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -27,17 +28,19 @@ const store = configureStore();
 function App() {
   return (
     <Provider store={store}>
-      <CssBaseline />
-      <Helmet></Helmet>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <AppContainer>
-            <Routes>
-              <Route path="/" element={<Farm />} />
-            </Routes>
-          </AppContainer>
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <SnackbarProvider maxSnack={3}>
+        <CssBaseline />
+        <Helmet></Helmet>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <AppContainer>
+              <Routes>
+                <Route path="/" element={<Farm />} />
+              </Routes>
+            </AppContainer>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </SnackbarProvider>
     </Provider>
   );
 }

@@ -10,6 +10,7 @@ const initialState: CommonState = {
   web3: null,
   connected: false,
   networkId: networkId ? parseInt(networkId) : 1285,
+  notifications: [],
 };
 
 export default reducerWithInitialState(initialState)

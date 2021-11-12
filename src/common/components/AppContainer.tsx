@@ -4,6 +4,7 @@ import Divider from "@mui/material/Divider";
 import clsx from "clsx";
 import Header from "./Header";
 import Background from "./Background/Background";
+import Notifier from "./Notifier";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -57,6 +58,7 @@ export default function AppContainer(props: Props) {
       <div className={clsx(classes.content, classes.overBackground)}>
         {children}
       </div>
+      <Notifier />
     </div>
   );
 }

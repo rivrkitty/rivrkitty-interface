@@ -1,3 +1,4 @@
+import { Token } from "./../model/reducer";
 import { ReducerBuilder } from "typescript-fsa-reducers";
 import * as R from "ramda";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -39,6 +40,20 @@ export function useFarms() {
   };
 }
 
+const getTokensFromFarms = (farms: FarmType[]) => {
+  const tokens: { [tokenName: string]: Token } = {};
+  farms.forEach((f) => {
+    tokens[f.tokenAddress] = {
+      symbol: f.tokenName,
+      decimals: f.tokenDecimals,
+      address: f.tokenAddress,
+      balance: 0,
+      allowance: {},
+    };
+  });
+  return tokens;
+};
+
 export const builderHandler = (
   builder: ReducerBuilder<FarmsState>
 ): ReducerBuilder<FarmsState> =>
@@ -58,6 +73,7 @@ export const builderHandler = (
       (state, { params: { networkId }, result }) =>
         R.mergeDeepRight(state, {
           farms: { [networkId]: result },
+          tokens: getTokensFromFarms(result),
           requestState: { error: false, ongoing: false },
         }) as any
     );

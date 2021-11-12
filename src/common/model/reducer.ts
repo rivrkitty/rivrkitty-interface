@@ -1,4 +1,5 @@
 import Web3 from "web3";
+import { SnackbarNotification } from "./snackbar";
 
 export interface RequestState {
   ongoing: boolean;
@@ -12,4 +13,5 @@ export type CommonState = {
   networkId: number;
   connectWalletPending?: boolean;
   disconnectWalletPending?: boolean;
+  notifications: SnackbarNotification[];
 };
