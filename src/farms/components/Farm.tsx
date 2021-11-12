@@ -1,6 +1,6 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
-import { FarmType } from "../models";
+import { FarmType } from "../../../rivrkitty-common/farms/models";
 import FarmHeader from "./FarmHeader";
 import FarmContent from "./FarmContent";
 

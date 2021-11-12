@@ -5,6 +5,8 @@
     "menuNFTs": "NFTs (coming soon)",
     "menuDocumentation": "Documentation",
     "walletConnect": "Connect to a wallet",
+    "fetchError": "Oooops... Something went wrong. Please Retry to proceed.",
+    "fetchRetry": "Retry",
     "farmsTitle": "Farms",
     "farmsDescription": "Stake LP tokens to earn rewards in $PAWS",
     "farmsHoldingTitle": "My $PAWS Holdings",
@@ -19,6 +21,7 @@
     "farmsDeposit": "Deposit",
     "farmsWithdrawBalance": "Your Staked: {{ bal }} ({{ value }})",
     "farmsWithdraw": "Withdraw",
-    "farmsHarvestAll": "Harvest All"
+    "farmsHarvestAll": "Harvest All",
+    "farmsFetching": "Fetching farms..."
   }
 }

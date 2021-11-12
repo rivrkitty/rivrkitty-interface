@@ -4,9 +4,8 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useTranslation } from "react-i18next";
-import { FarmType } from "../models";
+import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { getSingleAssetSrc } from "../../utils/getSingleAssetSrc";
-import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 
 export default function FarmHeader(props: { item: FarmType }) {

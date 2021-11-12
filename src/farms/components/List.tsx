@@ -1,73 +1,21 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
-import { FarmType } from "../models";
-import Farm from "./Farm";
 import Grid from "@mui/material/Grid";
-
-const items: FarmType[] = [
-  {
-    id: "solar-rkitty-movr",
-    poolId: 0,
-    name: "RKITTY-MOVR",
-    platform: "SOLAR",
-    platformUrl: "https://app.solarbeam.io/exchange/swap",
-    tokenName: "RKITTY-MOVR LP",
-    tokenAddress: "0x0",
-    tokenDecimals: 18,
-    tokenAssets: ["RKITTY", "MOVR"],
-    tokenAssetAddresses: ["0x0", "0x0"],
-    buyTokenUrl: "https://app.solarbeam.io/exchange/swap",
-    rewardTokens: ["RKITTY", "MOVR"],
-    rewardTokensAddress: ["0x0", "0x0"],
-  },
-  {
-    id: "solar-rkitty-movr",
-    poolId: 0,
-    name: "RKITTY-MOVR",
-    platform: "SOLAR",
-    platformUrl: "https://app.solarbeam.io/exchange/swap",
-    tokenName: "RKITTY-MOVR LP",
-    tokenAddress: "0x0",
-    tokenDecimals: 18,
-    tokenAssets: ["RKITTY", "MOVR"],
-    tokenAssetAddresses: ["0x0", "0x0"],
-    buyTokenUrl: "https://app.solarbeam.io/exchange/swap",
-    rewardTokens: ["RKITTY", "MOVR"],
-    rewardTokensAddress: ["0x0", "0x0"],
-  },
-  {
-    id: "solar-rkitty-movr",
-    poolId: 0,
-    name: "RKITTY-MOVR",
-    platform: "SOLAR",
-    platformUrl: "https://app.solarbeam.io/exchange/swap",
-    tokenName: "RKITTY-MOVR LP",
-    tokenAddress: "0x0",
-    tokenDecimals: 18,
-    tokenAssets: ["RKITTY", "MOVR"],
-    tokenAssetAddresses: ["0x0", "0x0"],
-    buyTokenUrl: "https://app.solarbeam.io/exchange/swap",
-    rewardTokens: ["RKITTY", "MOVR"],
-    rewardTokensAddress: ["0x0", "0x0"],
-  },
-  {
-    id: "solar-rkitty-movr",
-    poolId: 0,
-    name: "RKITTY-MOVR",
-    platform: "SOLAR",
-    platformUrl: "https://app.solarbeam.io/exchange/swap",
-    tokenName: "RKITTY-MOVR LP",
-    tokenAddress: "0x0",
-    tokenDecimals: 18,
-    tokenAssets: ["RKITTY", "MOVR"],
-    tokenAssetAddresses: ["0x0", "0x0"],
-    buyTokenUrl: "https://app.solarbeam.io/exchange/swap",
-    rewardTokens: ["RKITTY", "MOVR"],
-    rewardTokensAddress: ["0x0", "0x0"],
-  },
-];
+import Farm from "./Farm";
+import { useFarms } from "../redux/selectors";
+import RetryButton from "../../common/components/RetryButton";
+import Loader from "../../common/components/Loader";
+import { useTranslation } from "react-i18next";
 
 export default function List() {
+  const { farms, requestState, getFarms } = useFarms();
+
+  const { t } = useTranslation();
+
+  React.useEffect(() => {
+    getFarms();
+  }, [getFarms]);
+
   return (
     <Paper
       sx={{
@@ -76,11 +24,21 @@ export default function List() {
       }}
     >
       <Grid container spacing={2}>
-        {items.map((i) => (
-          <Grid key={i.id} item>
-            <Farm item={i} />
+        {farms ? (
+          farms.map((i) => (
+            <Grid key={i.id} item>
+              <Farm item={i} />
+            </Grid>
+          ))
+        ) : requestState.error ? (
+          <Grid item xs={12} justifyContent="center">
+            <RetryButton onRetry={getFarms} />
           </Grid>
-        ))}
+        ) : (
+          <Grid item xs={12} justifyContent="center" alignItems="center">
+            <Loader text={t("farmsFetching")} />
+          </Grid>
+        )}
       </Grid>
     </Paper>
   );

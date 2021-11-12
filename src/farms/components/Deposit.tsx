@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import { FarmType } from "../models";
+import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import AmountTextField from "../../common/components/AmountTextField";

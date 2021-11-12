@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import { FarmType } from "../models";
+import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { getSingleAssetSrc } from "../../utils/getSingleAssetSrc";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
