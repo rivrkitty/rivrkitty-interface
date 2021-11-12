@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { Helmet } from "react-helmet";
 import { Routes, Route } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
 import {
   ThemeProvider,
   Theme,
@@ -26,6 +27,7 @@ const store = configureStore();
 function App() {
   return (
     <Provider store={store}>
+      <CssBaseline />
       <Helmet></Helmet>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>

@@ -84,8 +84,6 @@ export class BackgroundCanvasAnimation {
     let currColorId = 0;
 
     for (let lid = 0; lid <= this.config.numOfLayers; lid++) {
-      const colorAngle = Math.PI * 2 * (lid / this.config.numOfLayers);
-
       layers.push({
         id: lid, // used for noise offset
         progress: 1 - lid / this.config.numOfLayers,
@@ -156,8 +154,6 @@ export class BackgroundCanvasAnimation {
   }
 
   update(t) {
-    const prevTimestamp = this.timestamp * 5000;
-
     if (t) {
       let shiftNeeded = false;
       this.timestamp = t / 5000;

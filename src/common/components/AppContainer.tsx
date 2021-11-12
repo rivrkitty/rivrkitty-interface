@@ -49,7 +49,7 @@ export default function AppContainer(props: Props) {
       <Divider
         sx={{
           zIndex: 1,
-          height: "1px",
+          height: "2px",
           background:
             "linear-gradient(90deg, rgba(234,132,120,1) 0%, rgba(95,176,180,1) 100%)",
         }}

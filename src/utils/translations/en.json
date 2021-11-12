@@ -1,5 +1,6 @@
 {
   "translation": {
+    "max": "max",
     "menuFarms": "Farms",
     "menuNFTs": "NFTs (coming soon)",
     "menuDocumentation": "Documentation",
@@ -9,6 +10,15 @@
     "farmsHoldingTitle": "My $PAWS Holdings",
     "farmsPendingTitle": "Pending $PAWS Rewards",
     "farmsPoolRate": "Pool rate",
-    "farmsPoolRateDetails": "{{amount}} {{token}} / week"
+    "farmsPoolRateDetails": "{{amount}} {{token}} / week",
+    "farmsLPDescriptionTitle": "Step 1",
+    "farmsLPDescription": "Once you have added liquidity to the {{ token }} pool on {{ platform }} you can stake your liquidity tokens to earn {{ rewards }} on this page.",
+    "farmsAddLiquidity": "Add {{ token }} Liquidity",
+    "farmsDepositBalance": "Wallet Balance: {{ bal }} ({{ value }})",
+    "farmsApprove": "Approve",
+    "farmsDeposit": "Deposit",
+    "farmsWithdrawBalance": "Your Staked: {{ bal }} ({{ value }})",
+    "farmsWithdraw": "Withdraw",
+    "farmsHarvestAll": "Harvest All"
   }
 }

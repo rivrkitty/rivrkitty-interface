@@ -14,10 +14,10 @@ export default function Farm() {
       padding={2}
       sx={{ ...defaultContentPadding }}
     >
-      <Grid item xs={12} md={3}>
+      <Grid item xs={12} lg={3}>
         <Summary />
       </Grid>
-      <Grid item xs={12} md={9}>
+      <Grid item xs={12} lg={9}>
         <List />
       </Grid>
     </Grid>
