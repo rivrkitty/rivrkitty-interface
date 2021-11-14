@@ -267,28 +267,163 @@ export const erc20ABI = [
 
 export const farmABI = [
   {
+    inputs: [
+      {
+        internalType: "contract KittyPaws",
+        name: "_paws",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_pawsPerBlock",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
     anonymous: false,
     inputs: [
       {
         indexed: true,
         internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
+        name: "caller",
         type: "address",
       },
       {
         indexed: false,
         internalType: "uint256",
-        name: "value",
+        name: "previousAmount",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "newAmount",
         type: "uint256",
       },
     ],
-    name: "Approval",
+    name: "AllocPointsUpdated",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "pid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "Deposit",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "pid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "EmergencyWithdraw",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "caller",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "previousAmount",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "newAmount",
+        type: "uint256",
+      },
+    ],
+    name: "EmissionRateUpdated",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "caller",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "oldAddress",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "newAddress",
+        type: "address",
+      },
+    ],
+    name: "FeeAddressChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOperator",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOperator",
+        type: "address",
+      },
+    ],
+    name: "OperatorTransferred",
     type: "event",
   },
   {
@@ -316,100 +451,33 @@ export const farmABI = [
       {
         indexed: true,
         internalType: "address",
-        name: "from",
+        name: "user",
         type: "address",
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
+        internalType: "uint256",
+        name: "pid",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
         internalType: "uint256",
         name: "amount",
         type: "uint256",
       },
     ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    name: "Withdraw",
+    type: "event",
   },
   {
     inputs: [],
-    name: "decimals",
+    name: "MAXIMUM_DEPOSIT_FEE_RATE",
     outputs: [
       {
-        internalType: "uint8",
+        internalType: "uint16",
         name: "",
-        type: "uint8",
+        type: "uint16",
       },
     ],
     stateMutability: "view",
@@ -418,57 +486,80 @@ export const farmABI = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "spender",
+        internalType: "uint256",
+        name: "_allocPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "contract IERC20",
+        name: "_lpToken",
         type: "address",
       },
       {
-        internalType: "uint256",
-        name: "subtractedValue",
-        type: "uint256",
+        internalType: "uint16",
+        name: "_depositFeeBP",
+        type: "uint16",
       },
-    ],
-    name: "decreaseAllowance",
-    outputs: [
       {
         internalType: "bool",
-        name: "",
+        name: "_withUpdate",
         type: "bool",
       },
     ],
+    name: "add",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_allocPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "contract IERC20",
+        name: "_lpToken",
+        type: "address",
+      },
+      {
+        internalType: "uint16",
+        name: "_depositFeeBP",
+        type: "uint16",
+      },
+      {
+        internalType: "bool",
+        name: "_withUpdate",
+        type: "bool",
+      },
+      {
         internalType: "address",
-        name: "spender",
+        name: "_addRewardChef",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "addedValue",
+        name: "_addRewardChefPid",
         type: "uint256",
       },
-    ],
-    name: "increaseAllowance",
-    outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        internalType: "address",
+        name: "_addRewardToken",
+        type: "address",
       },
     ],
+    name: "addWithAddReward",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_to",
-        type: "address",
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
       },
       {
         internalType: "uint256",
@@ -476,19 +567,95 @@ export const farmABI = [
         type: "uint256",
       },
     ],
-    name: "mint",
+    name: "deposit",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
+      },
+    ],
+    name: "emergencyWithdraw",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "name",
+    name: "feeAddress",
     outputs: [
       {
-        internalType: "string",
+        internalType: "address",
         name: "",
-        type: "string",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_from",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_to",
+        type: "uint256",
+      },
+    ],
+    name: "getMultiplier",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
+      },
+    ],
+    name: "isAddRewardPool",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "massUpdatePools",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "operator",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
       },
     ],
     stateMutability: "view",
@@ -509,58 +676,163 @@ export const farmABI = [
   },
   {
     inputs: [],
+    name: "paws",
+    outputs: [
+      {
+        internalType: "contract KittyPaws",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "pawsPerBlock",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+    ],
+    name: "pendingPaws",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "poolInfo",
+    outputs: [
+      {
+        internalType: "contract IERC20",
+        name: "lpToken",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "allocPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "lastRewardBlock",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "accPawsPerShare",
+        type: "uint256",
+      },
+      {
+        internalType: "uint16",
+        name: "depositFeeBP",
+        type: "uint16",
+      },
+      {
+        internalType: "uint256",
+        name: "totalLp",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "addRewardChef",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addRewardChefPid",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "addRewardToken",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "accAddRewardsPerShare",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "poolLength",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "renounceOwnership",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
       },
       {
         internalType: "uint256",
-        name: "amount",
+        name: "_allocPoint",
         type: "uint256",
       },
-    ],
-    name: "transfer",
-    outputs: [
+      {
+        internalType: "uint16",
+        name: "_depositFeeBP",
+        type: "uint16",
+      },
       {
         internalType: "bool",
-        name: "",
+        name: "_withUpdate",
         type: "bool",
       },
     ],
+    name: "set",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -568,28 +840,71 @@ export const farmABI = [
     inputs: [
       {
         internalType: "address",
-        name: "sender",
+        name: "_feeAddress",
         type: "address",
       },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
+    ],
+    name: "setFeeAddress",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "startBlock",
+    outputs: [
       {
         internalType: "uint256",
-        name: "amount",
+        name: "",
         type: "uint256",
       },
     ],
-    name: "transferFrom",
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "startFarming",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "totalAllocPoint",
     outputs: [
       {
-        internalType: "bool",
+        internalType: "uint256",
         name: "",
-        type: "bool",
+        type: "uint256",
       },
     ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "totalPawsInPools",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newOperator",
+        type: "address",
+      },
+    ],
+    name: "transferOperator",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -602,6 +917,107 @@ export const farmABI = [
       },
     ],
     name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_allocPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "_withUpdate",
+        type: "bool",
+      },
+    ],
+    name: "updateAllocPoint",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_pawsPerBlock",
+        type: "uint256",
+      },
+    ],
+    name: "updateEmissionRate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
+      },
+    ],
+    name: "updatePool",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "userInfo",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "rewardDebt",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "addRewardDebt",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "withdraw",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

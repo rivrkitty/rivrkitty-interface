@@ -1,7 +1,7 @@
-import { CircularProgress, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Box from "@mui/system/Box";
 
-export default function Loader(props: { text: string }) {
+export default function InfoMessage(props: { text: string }) {
   const { text } = props;
   return (
     <Box
@@ -12,7 +12,6 @@ export default function Loader(props: { text: string }) {
       minHeight={200}
     >
       <Typography variant="body1">{text}</Typography>
-      <CircularProgress sx={{ marginTop: 2 }} />;
     </Box>
   );
 }

@@ -16,17 +16,22 @@
     "farmsLPDescriptionTitle": "Step 1",
     "farmsLPDescription": "Once you have added liquidity to the {{ token }} pool on {{ platform }} you can stake your liquidity tokens to earn {{ rewards }} on this page.",
     "farmsAddLiquidity": "Add {{ token }} Liquidity",
-    "farmsDepositBalance": "Wallet Balance: {{ bal }}",
+    "farmsDepositBalance": "Wallet Balance: ",
     "farmsApprove": "Approve",
     "farmsApproving": "Approving...",
     "farmsDeposit": "Deposit",
-    "farmsWithdrawBalance": "Your Staked: {{ bal }}",
+    "farmsDepositing": "Depositing...",
+    "farmsWithdrawBalance": "Your Staked: ",
     "farmsWithdraw": "Withdraw",
     "farmsHarvestAll": "Harvest All",
     "farmsFetching": "Fetching farms...",
     "farmsApprovalSuccess": "Approval success",
     "farmsApprovalError": "Approval error: {{error}}",
     "farmsDepositSuccess": "Deposit success",
-    "farmsDepositError": "Deposit error: {{error}}"
+    "farmsDepositError": "Deposit error: {{error}}",
+    "farmsWithdrawSuccess": "Withdrawal success",
+    "farmsWithdrawError": "Withdrawal error: {{error}}",
+    "farmsWithdrawing": "Withdrawing...",
+    "farmsEmptyList": "There are currently no farms"
   }
 }

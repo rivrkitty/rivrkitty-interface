@@ -1,5 +1,4 @@
 import { deposit } from "./../../web3/deposit";
-import { BigNumber } from "bignumber.js";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Web3 from "web3";
@@ -13,6 +12,7 @@ type BaseFetchDepositProps = {
   amount: string;
   contractAddress: string;
   pid: number;
+  tokenAddress: string;
 };
 
 interface FetchDepositProps extends BaseFetchDepositProps {
@@ -66,30 +66,20 @@ export const builderHandler = (
   builder: ReducerBuilder<FarmsState>
 ): ReducerBuilder<FarmsState> =>
   builder
-    .case(fetchDeposit.async.started, (state, { contractAddress }) => ({
+    .case(fetchDeposit.async.started, (state, { tokenAddress }) => ({
       ...state,
       fetchDepositPending: {
         ...state.fetchDepositPending,
-        [contractAddress]: true,
+        [tokenAddress]: true,
       },
     }))
-    .case(
-      fetchDeposit.async.failed,
-      (state, { params: { contractAddress } }) => ({
+    .cases(
+      [fetchDeposit.async.failed, fetchDeposit.async.done],
+      (state, { params: { tokenAddress } }) => ({
         ...state,
         fetchDepositPending: {
           ...state.fetchDepositPending,
-          [contractAddress]: false,
-        },
-      })
-    )
-    .case(
-      fetchDeposit.async.done,
-      (state, { params: { contractAddress } }) => ({
-        ...state,
-        fetchDepositPending: {
-          ...state.fetchDepositPending,
-          [contractAddress]: false,
+          [tokenAddress]: false,
         },
       })
     );

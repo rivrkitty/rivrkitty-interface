@@ -70,7 +70,7 @@ const Notifier = () => {
       // keep track of snackbars that we've displayed
       storeDisplayed(key);
     });
-  }, [notifications, closeSnackbar, enqueueSnackbar, dispatch]);
+  }, [notifications, closeSnackbar, enqueueSnackbar, dispatch, networkId]);
 
   return null;
 };

@@ -21,5 +21,6 @@ export const getSingleAssetSrc = (symbol) => {
     ));
   }
 
-  throw new Error(`Image required for '${symbol}' token in 'assets/token/'`);
+  console.error(`Image required for '${symbol}' token in 'assets/token/'`);
+  return { default: "" };
 };

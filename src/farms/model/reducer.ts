@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { RequestState } from "../../common/model/reducer";
 
@@ -17,6 +18,9 @@ export type FarmsState = {
   farms: { [networkId: string]: FarmType[] };
   requestState: RequestState;
   tokens: TokensMap;
+  userInfo: {
+    [tokenAddress: string]: BigNumber;
+  };
   fetchBalancesRequestState: RequestState;
   fetchBalancesDone: boolean;
   fetchApprovalPending: {
@@ -24,6 +28,12 @@ export type FarmsState = {
   };
   fetchApprovalDone: boolean;
   fetchDepositPending: {
+    [address: string]: boolean;
+  };
+  fetchWithdrawPending: {
+    [address: string]: boolean;
+  };
+  fetchUserInfoPending: {
     [address: string]: boolean;
   };
 };

@@ -20,11 +20,12 @@ type Props = {
   decimals: number;
   maxValue?: BigNumber;
   fullWidth?: boolean;
+  disabled?: boolean;
   onChange: (value: BigNumber, input: string) => void;
 };
 
 export default function AmountTextField(props: Props) {
-  const { value, maxValue, decimals, fullWidth, onChange } = props;
+  const { value, maxValue, decimals, fullWidth, disabled, onChange } = props;
 
   const { t } = useTranslation();
 
@@ -55,7 +56,7 @@ export default function AmountTextField(props: Props) {
         <InputAdornment position="end">
           <Button
             variant="text"
-            disabled={maxValue === undefined}
+            disabled={maxValue === undefined || maxValue.isZero() || disabled}
             sx={{ color: "#EE7180" }}
             onClick={handleMax}
           >
@@ -66,6 +67,7 @@ export default function AmountTextField(props: Props) {
       inputProps={{
         type: "number",
       }}
+      disabled={disabled}
     />
   );
 }

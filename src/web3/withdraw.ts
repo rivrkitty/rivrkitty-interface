@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
+import Web3 from "web3";
 import { AbiItem } from "web3-utils";
 import { Contract } from "web3-eth-contract";
-import Web3 from "web3";
 import { farmABI } from "./abi";
 import { enqueueSnackbar } from "../common/redux/snackbar";
 
@@ -14,10 +14,10 @@ type Props = {
   dispatch: Dispatch;
 };
 
-export const deposit = async (props: Props) => {
+export const withdraw = async (props: Props) => {
   const { web3, contractAddress, pid, amount, address, dispatch } = props;
   const contract = new web3.eth.Contract(farmABI as AbiItem[], contractAddress);
-  const data = await _deposit({
+  const data = await _withdraw({
     pid,
     contract,
     amount,
@@ -27,17 +27,18 @@ export const deposit = async (props: Props) => {
   return data;
 };
 
-const _deposit = (props: {
+const _withdraw = (props: {
   pid: number;
   contract: Contract;
   amount: string;
   address: string;
   dispatch: Dispatch;
 }) => {
-  const { contract, pid, amount, address, dispatch } = props;
+  const { pid, contract, amount, address, dispatch } = props;
+
   return new Promise<void>((resolve, reject) => {
     contract.methods
-      .deposit(pid, amount)
+      .withdraw(pid, amount)
       .send({ from: address })
       .on("transactionHash", function (hash: string) {
         console.log(hash);

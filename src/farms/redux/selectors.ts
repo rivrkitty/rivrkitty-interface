@@ -1,1 +1,1 @@
-export { useFarms } from "./getFarms";
+export { useFarms } from "./fetchFarms";

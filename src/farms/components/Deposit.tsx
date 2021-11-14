@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Grid from "@mui/material/Grid";
 import { FarmType } from "../../../rivrkitty-common/farms/models";
-import { Button, Typography } from "@mui/material";
+import { Button, Link, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import AmountTextField from "../../common/components/AmountTextField";
 import BigNumber from "bignumber.js";
@@ -11,6 +11,7 @@ import { useFetchApproval } from "../redux/fetchApproval";
 import { useSnackbar } from "notistack";
 import { useFetchDeposit } from "../redux/fetchDeposit";
 import { convertAmountToRawNumber } from "../../utils/bignumber";
+import { useFetchUserInfo } from "../redux/fetchUserInfo";
 
 function useMonitorAllowance(
   tokens: TokensMap,
@@ -26,8 +27,22 @@ function useMonitorAllowance(
       isNeedApproval:
         allowance.isZero() || prevState.amount.isGreaterThan(allowance),
     }));
-  }, [tokenAllowance]);
+  }, [tokenAllowance, setState]);
 }
+
+const getNeedApproval = (
+  tokens: TokensMap,
+  item: FarmType,
+  amount: BigNumber
+) => {
+  const allowanceAmount = tokens[item.tokenAddress].allowance[item.chefAddress];
+  if (allowanceAmount === null) {
+    return null;
+  } else {
+    const allowance = new BigNumber(allowanceAmount);
+    return allowance.isZero() || amount.isGreaterThan(allowance);
+  }
+};
 
 export default function Deposit(props: { item: FarmType }) {
   const { item } = props;
@@ -36,17 +51,13 @@ export default function Deposit(props: { item: FarmType }) {
   const { tokens, tokenBalance, fetchBalances } = useFetchBalances();
   const { fetchApproval, fetchApprovalPending } = useFetchApproval();
   const { fetchDeposit, fetchDepositPending } = useFetchDeposit();
+  const { fetchUserInfo } = useFetchUserInfo();
   const { enqueueSnackbar } = useSnackbar();
 
   const [depositSettings, setDepositSettings] = React.useState({
     amount: new BigNumber(0),
-    maxValue: new BigNumber(10),
     input: "0.0",
-    isNeedApproval: new BigNumber(
-      tokens[item.tokenAddress].allowance[item.chefAddress]
-    ).isZero(),
   });
-
   useMonitorAllowance(
     tokens,
     item.tokenAddress,
@@ -54,15 +65,13 @@ export default function Deposit(props: { item: FarmType }) {
     setDepositSettings
   );
 
+  const needApproval = getNeedApproval(tokens, item, depositSettings.amount);
+
   const handleInputChange = (amount: BigNumber, input: string) => {
-    const allowance = new BigNumber(
-      tokens[item.tokenAddress].allowance[item.chefAddress]
-    );
     setDepositSettings((s) => ({
       ...s,
       input: amount.isEqualTo(input) ? input : amount.toFormat(),
       amount,
-      isNeedApproval: allowance.isZero() || s.amount.isGreaterThan(allowance),
     }));
   };
 
@@ -88,10 +97,21 @@ export default function Deposit(props: { item: FarmType }) {
       ),
       contractAddress: item.chefAddress,
       pid: item.poolId,
+      tokenAddress: item.tokenAddress,
     })
       .then(() => {
         enqueueSnackbar(t("farmsDepositSuccess"), { variant: "success" });
-        fetchBalances();
+        setDepositSettings((s) => ({
+          ...s,
+          amount: new BigNumber(0),
+          input: "0.0",
+        }));
+        fetchBalances({ tokens });
+        fetchUserInfo({
+          pid: item.poolId,
+          contractAddress: item.chefAddress,
+          tokenAddress: item.tokenAddress,
+        });
       })
       .catch((error) =>
         enqueueSnackbar(t("farmsDepositError", { error }), {
@@ -100,15 +120,25 @@ export default function Deposit(props: { item: FarmType }) {
       );
   };
 
+  const handleAmountClick = () => {
+    const amount = tokenBalance(item.tokenAddress);
+    setDepositSettings((s) => ({
+      ...s,
+      input: amount.toFormat(),
+      amount,
+    }));
+  };
+
   return (
     <Grid container spacing={1}>
       <Grid item xs={12}>
         <Typography variant="caption">
-          {t("farmsDepositBalance", {
-            bal: tokenBalance(item.tokenAddress)
+          {t("farmsDepositBalance")}
+          <Link sx={{ cursor: "pointer" }} onClick={handleAmountClick}>
+            {tokenBalance(item.tokenAddress)
               .decimalPlaces(8, BigNumber.ROUND_DOWN)
-              .toFormat(),
-          })}
+              .toFormat()}
+          </Link>
         </Typography>
       </Grid>
       <Grid item xs={12}>
@@ -117,11 +147,12 @@ export default function Deposit(props: { item: FarmType }) {
           value={depositSettings.input}
           maxValue={tokenBalance(item.tokenAddress)}
           decimals={18}
+          disabled={fetchDepositPending[item.tokenAddress]}
           onChange={handleInputChange}
         />
       </Grid>
       <Grid item xs={12}>
-        {depositSettings.isNeedApproval ? (
+        {needApproval ? (
           <Button
             fullWidth
             variant="contained"
@@ -139,13 +170,16 @@ export default function Deposit(props: { item: FarmType }) {
             variant="contained"
             color="primary"
             disabled={
-              fetchDepositPending[item.chefAddress] ||
+              needApproval === null ||
+              fetchDepositPending[item.tokenAddress] ||
               depositSettings.amount.isZero() ||
               tokenBalance(item.tokenAddress).isZero()
             }
             onClick={handleDepositAmount}
           >
-            {t("farmsDeposit")}
+            {fetchDepositPending[item.tokenAddress]
+              ? t("farmsDepositing")
+              : t("farmsDeposit")}
           </Button>
         )}
       </Grid>
