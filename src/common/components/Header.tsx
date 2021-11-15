@@ -5,8 +5,9 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { useTranslation } from "react-i18next";
 import WalletButton from "./WalletButton";
-import MovrPriceButton from "./MovrPriceButton";
-import RkittyPriceButton from "./RkittyPriceButton";
+import MovrPriceButton from "./HeaderComponents/MovrPriceButton";
+import RkittyPriceButton from "./HeaderComponents/RkittyPriceButton";
+import MoreMenu from "./HeaderComponents/MoreMenu";
 import logo from "../../assets/logo.png";
 import { defaultContentPadding } from "../../utils/theme";
 
@@ -73,6 +74,7 @@ export default function Header(props: { className?: string }) {
       <MovrPriceButton />
       <RkittyPriceButton />
       <WalletButton />
+      <MoreMenu />
     </Box>
   );
 }

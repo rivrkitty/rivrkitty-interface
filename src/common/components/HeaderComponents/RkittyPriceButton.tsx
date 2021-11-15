@@ -4,7 +4,7 @@ import Hidden from "@mui/material/Hidden";
 import Avatar from "@mui/material/Avatar";
 import { useTranslation } from "react-i18next";
 import PriceTickerButton from "./PriceTickerButton";
-import { getSingleAssetSrc } from "../../utils/getSingleAssetSrc";
+import { getSingleAssetSrc } from "../../../utils/getSingleAssetSrc";
 
 const useStyles = makeStyles({
   button: {
