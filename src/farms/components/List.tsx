@@ -7,7 +7,6 @@ import RetryButton from "../../common/components/RetryButton";
 import Loader from "../../common/components/Loader";
 import { useTranslation } from "react-i18next";
 import Fetcher from "./Fetcher";
-import { Typography } from "@mui/material";
 import InfoMessage from "../../common/components/InfoMessage";
 
 export default function List() {

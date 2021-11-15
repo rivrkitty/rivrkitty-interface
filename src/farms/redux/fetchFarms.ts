@@ -1,5 +1,4 @@
 import { TokensMap } from "./../model/reducer";
-import { Token } from "../model/reducer";
 import { ReducerBuilder } from "typescript-fsa-reducers";
 import * as R from "ramda";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
