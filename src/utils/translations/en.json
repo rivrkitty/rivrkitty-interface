@@ -12,7 +12,7 @@
     "farmsHoldingTitle": "My $PAWS Holdings",
     "farmsPendingTitle": "Pending $PAWS Rewards",
     "farmsPoolRate": "Pool rate",
-    "farmsPoolRateDetails": "{{amount}} {{token}} / week",
+    "farmsPoolRateDetails": "/ week",
     "farmsLPDescriptionTitle": "Step 1",
     "farmsLPDescription": "Once you have added liquidity to the {{ token }} pool on {{ platform }} you can stake your liquidity tokens to earn {{ rewards }} on this page.",
     "farmsAddLiquidity": "Add {{ token }} Liquidity",
@@ -24,6 +24,7 @@
     "farmsWithdrawBalance": "Your Staked: ",
     "farmsWithdraw": "Withdraw",
     "farmsHarvestAll": "Harvest All",
+    "farmsHarvest": "Harvest",
     "farmsFetching": "Fetching farms...",
     "farmsApprovalSuccess": "Approval success",
     "farmsApprovalError": "Approval error: {{error}}",
@@ -32,6 +33,10 @@
     "farmsWithdrawSuccess": "Withdrawal success",
     "farmsWithdrawError": "Withdrawal error: {{error}}",
     "farmsWithdrawing": "Withdrawing...",
-    "farmsEmptyList": "There are currently no farms"
+    "farmsEmptyList": "There are currently no farms",
+    "farmingEarned": "EARNED",
+    "farmsHarvestSuccess": "Harvest success",
+    "farmsHarvestError": "Harvest error: {{error}}",
+    "farmsHarvesting": "Harvesting..."
   }
 }

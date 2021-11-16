@@ -24,6 +24,17 @@ export const getNetworkMulticall = (networkId: number) => {
   }
 };
 
+export const getNetworkAdditionalRewardCalc = (networkId: number) => {
+  switch (networkId) {
+    case 1287:
+      return "0x982365Eb0A3aE7C910810Ed45757DCBca1754712";
+    default:
+      throw Error(
+        `Additional reward calc not configured for network id ${networkId}`
+      );
+  }
+};
+
 const networkTxUrls: { [networkId: number]: (hash: string) => string } = {
   1285: (hash: string) =>
     `https://blockscout.moonriver.moonbeam.network/tx/${hash}`,

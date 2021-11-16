@@ -12,15 +12,28 @@ export type Token = {
   };
 };
 
+export type PoolInfo = {
+  allocPoints: BigNumber;
+  userBalance: BigNumber;
+  pendingReward: BigNumber;
+  addPendingReward: BigNumber;
+};
+
 export type TokensMap = { [token: string]: Token };
+
+export type PoolInfoMap = {
+  [tokenAddress: string]: {
+    [poolId: number]: PoolInfo;
+    totalAllocPoints: BigNumber;
+    rewardPerWeek: BigNumber;
+  };
+};
 
 export type FarmsState = {
   farms: { [networkId: string]: FarmType[] };
   requestState: RequestState;
   tokens: TokensMap;
-  userInfo: {
-    [tokenAddress: string]: BigNumber;
-  };
+  poolInfo: PoolInfoMap;
   fetchBalancesRequestState: RequestState;
   fetchBalancesDone: boolean;
   fetchApprovalPending: {
@@ -33,7 +46,8 @@ export type FarmsState = {
   fetchWithdrawPending: {
     [address: string]: boolean;
   };
-  fetchUserInfoPending: {
+  fetchPoolInfoPending: boolean;
+  fetchHarvestPending: {
     [address: string]: boolean;
   };
 };

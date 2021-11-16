@@ -4,7 +4,8 @@ import { builderHandler as fetchBalancesHandler } from "./fetchBalances";
 import { builderHandler as fetchApprovalHandler } from "./fetchApproval";
 import { builderHandler as fetchDepositHandler } from "./fetchDeposit";
 import { builderHandler as fetchWithdrawHandler } from "./fetchWithdraw";
-import { builderHandler as fetchUserInfoHandler } from "./fetchUserInfo";
+import { builderHandler as fetchUserInfoHandler } from "./fetchPoolInfo";
+import { builderHandler as fetchHarvestHandler } from "./fetchHarvest";
 import { FarmsState } from "../model/reducer";
 import { createRequestState } from "../../common";
 
@@ -12,14 +13,15 @@ const initialState: FarmsState = {
   farms: {},
   requestState: createRequestState(),
   tokens: {},
-  userInfo: {},
+  poolInfo: {},
   fetchBalancesRequestState: createRequestState(),
   fetchBalancesDone: false,
   fetchApprovalPending: {},
   fetchApprovalDone: false,
   fetchDepositPending: {},
   fetchWithdrawPending: {},
-  fetchUserInfoPending: {},
+  fetchPoolInfoPending: false,
+  fetchHarvestPending: {},
 };
 
 export default reducerWithInitialState(initialState)
@@ -28,4 +30,5 @@ export default reducerWithInitialState(initialState)
   .withHandling(fetchApprovalHandler)
   .withHandling(fetchDepositHandler)
   .withHandling(fetchWithdrawHandler)
-  .withHandling(fetchUserInfoHandler);
+  .withHandling(fetchUserInfoHandler)
+  .withHandling(fetchHarvestHandler);

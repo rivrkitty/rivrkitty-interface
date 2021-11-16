@@ -11,7 +11,8 @@ import { useFetchApproval } from "../redux/fetchApproval";
 import { useSnackbar } from "notistack";
 import { useFetchDeposit } from "../redux/fetchDeposit";
 import { convertAmountToRawNumber } from "../../utils/bignumber";
-import { useFetchUserInfo } from "../redux/fetchUserInfo";
+import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
+import { useFarms } from "../redux/fetchFarms";
 
 function useMonitorAllowance(
   tokens: TokensMap,
@@ -48,10 +49,11 @@ export default function Deposit(props: { item: FarmType }) {
   const { item } = props;
 
   const { t } = useTranslation();
+  const { farms } = useFarms();
   const { tokens, tokenBalance, fetchBalances } = useFetchBalances();
   const { fetchApproval, fetchApprovalPending } = useFetchApproval();
   const { fetchDeposit, fetchDepositPending } = useFetchDeposit();
-  const { fetchUserInfo } = useFetchUserInfo();
+  const { fetchPoolInfo } = useFetchPoolInfo();
   const { enqueueSnackbar } = useSnackbar();
 
   const [depositSettings, setDepositSettings] = React.useState({
@@ -107,10 +109,10 @@ export default function Deposit(props: { item: FarmType }) {
           input: "0.0",
         }));
         fetchBalances({ tokens });
-        fetchUserInfo({
+        fetchPoolInfo({
+          farms: farms || [],
           pid: item.poolId,
-          contractAddress: item.chefAddress,
-          tokenAddress: item.tokenAddress,
+          chefAddress: item.chefAddress,
         });
       })
       .catch((error) =>

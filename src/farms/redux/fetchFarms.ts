@@ -53,28 +53,21 @@ const getTokensFromFarms = (farms: FarmType[], tokens: TokensMap) => {
       decimals: f.tokenDecimals,
       address: f.tokenAddress,
     };
+    f.rewardTokensAddress.forEach((t, index) => {
+      const currentReward = tokens[t] || {
+        balance: 0,
+        allowance: {},
+      };
+      tokens[t] = {
+        ...currentReward,
+        symbol: f.rewardTokens[index],
+        decimals: f.rewardTokensDecimals[index],
+        address: t,
+      };
+    });
   });
   return tokens;
 };
-
-// tokens[token] = {
-//       symbol: token,
-//       decimals: tokenDecimals,
-//       tokenAddress: tokenAddress,
-//       tokenBalance: 0,
-//       allowance: {
-//         ...tokens[token]?.allowance,
-//         [earnContractAddress]: tokenAddress ? 0 : Infinity,
-//       },
-//     };
-//     tokens[earnedToken] = {
-//       symbol: earnedToken,
-//       decimals: 18,
-//       tokenAddress: earnedTokenAddress,
-//       tokenBalance: 0,
-//       allowance: {
-//         [earnContractAddress]: 0,
-//       },
 
 export const builderHandler = (
   builder: ReducerBuilder<FarmsState>

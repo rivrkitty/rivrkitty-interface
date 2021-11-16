@@ -7,10 +7,24 @@ import { useTranslation } from "react-i18next";
 import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { getSingleAssetSrc } from "../../utils/getSingleAssetSrc";
 import IconButton from "@mui/material/IconButton";
+import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
+import BigNumber from "bignumber.js";
+
+const formatPoolRate = (poolRate: BigNumber | null) => {
+  if (!poolRate) {
+    return "0";
+  } else {
+    return poolRate.decimalPlaces(0, BigNumber.ROUND_DOWN).toFormat();
+  }
+};
 
 export default function FarmHeader(props: { item: FarmType }) {
   const { item } = props;
   const { t } = useTranslation();
+
+  const { infoPoolRate } = useFetchPoolInfo();
+
+  const hasTwoRewards = item.rewardTokens.length === 2;
   return (
     <Box
       sx={{
@@ -50,12 +64,27 @@ export default function FarmHeader(props: { item: FarmType }) {
       <Typography variant="body2" sx={{ marginRight: 1, marginTop: "6px" }}>
         {t("farmsPoolRate")}
       </Typography>
-      <Typography variant="h6">
-        {t("farmsPoolRateDetails", {
-          amount: "XXX",
-          token: item.rewardTokens[0],
-        })}
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "flex-end",
+        }}
+      >
+        {item.rewardTokens.map((tok, index) => (
+          <Typography variant={hasTwoRewards ? "body1" : "h6"}>
+            {formatPoolRate(
+              infoPoolRate(
+                index === 0 ? item.chefAddress : item.addRewardChefAddress!!,
+                item.rewardTokensAddress[index],
+                index === 0 ? item.poolId : item.addRewardChefPid!!
+              )
+            )}{" "}
+            <b>{tok}</b> {t("farmsPoolRateDetails")}
+          </Typography>
+        ))}
+      </Box>
     </Box>
   );
 }

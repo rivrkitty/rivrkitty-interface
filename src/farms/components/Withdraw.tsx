@@ -9,29 +9,23 @@ import { useFetchBalances } from "../redux/fetchBalances";
 import { useFetchWithdraw } from "../redux/fetchWithdraw";
 import { convertAmountToRawNumber } from "../../utils/bignumber";
 import { enqueueSnackbar } from "../../common/redux/snackbar";
-import { useFetchUserInfo } from "../redux/fetchUserInfo";
+import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
+import { useFarms } from "../redux/fetchFarms";
 
 export default function Withdraw(props: { item: FarmType }) {
   const { item } = props;
 
   const { t } = useTranslation();
 
+  const { farms } = useFarms();
   const { tokens, fetchBalances } = useFetchBalances();
   const { fetchWithdraw, fetchWithdrawPending } = useFetchWithdraw();
-  const { infoTokenBalance, fetchUserInfo } = useFetchUserInfo();
+  const { infoTokenBalance, fetchPoolInfo } = useFetchPoolInfo();
 
   const [withdrawSettings, setWithdrawSettings] = React.useState({
     amount: new BigNumber(0),
     input: "0.0",
   });
-
-  React.useEffect(() => {
-    fetchUserInfo({
-      pid: item.poolId,
-      contractAddress: item.chefAddress,
-      tokenAddress: item.tokenAddress,
-    });
-  }, [item.poolId, item.chefAddress, item.tokenAddress, fetchUserInfo]);
 
   const handleInputChange = (amount: BigNumber, input: string) =>
     setWithdrawSettings((s) => ({
@@ -58,10 +52,10 @@ export default function Withdraw(props: { item: FarmType }) {
           input: "0.0",
         }));
         fetchBalances({ tokens });
-        fetchUserInfo({
+        fetchPoolInfo({
+          farms: farms || [],
           pid: item.poolId,
-          contractAddress: item.chefAddress,
-          tokenAddress: item.tokenAddress,
+          chefAddress: item.chefAddress,
         });
       })
       .catch((error) =>
@@ -71,12 +65,17 @@ export default function Withdraw(props: { item: FarmType }) {
       );
   };
 
+  const tokenBalance = infoTokenBalance(
+    item.chefAddress,
+    item.tokenAddress,
+    item.poolId
+  );
+
   const handleAmountClick = () => {
-    const amount = infoTokenBalance(item.tokenAddress);
     setWithdrawSettings((s) => ({
       ...s,
-      input: amount.toFormat(),
-      amount,
+      input: tokenBalance.toFormat(),
+      amount: tokenBalance,
     }));
   };
 
@@ -86,9 +85,7 @@ export default function Withdraw(props: { item: FarmType }) {
         <Typography variant="caption">
           {t("farmsWithdrawBalance")}{" "}
           <Link sx={{ cursor: "pointer" }} onClick={handleAmountClick}>
-            {infoTokenBalance(item.tokenAddress)
-              .decimalPlaces(8, BigNumber.ROUND_DOWN)
-              .toFormat()}
+            {tokenBalance.decimalPlaces(8, BigNumber.ROUND_DOWN).toFormat()}
           </Link>
         </Typography>
       </Grid>
@@ -96,7 +93,7 @@ export default function Withdraw(props: { item: FarmType }) {
         <AmountTextField
           fullWidth
           value={withdrawSettings.input}
-          maxValue={infoTokenBalance(item.tokenAddress)}
+          maxValue={tokenBalance}
           decimals={18}
           disabled={fetchWithdrawPending[item.tokenAddress]}
           onChange={handleInputChange}
