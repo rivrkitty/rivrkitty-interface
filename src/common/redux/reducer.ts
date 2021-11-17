@@ -4,8 +4,6 @@ import { builderHandler as fetchPricesHandler } from "./fetchPrices";
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { CommonState } from "../model/reducer";
 
-// const networkId = process.env.REACT_APP_NETWORK_ID;
-
 const initialState: CommonState = {
   address: null,
   web3: null,
