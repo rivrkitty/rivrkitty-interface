@@ -4,11 +4,11 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useTranslation } from "react-i18next";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { getSingleAssetSrc } from "../../utils/getSingleAssetSrc";
 import IconButton from "@mui/material/IconButton";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import BigNumber from "bignumber.js";
+import { FarmType } from "../model/reducer";
 
 const formatPoolRate = (poolRate: BigNumber | null) => {
   if (!poolRate) {

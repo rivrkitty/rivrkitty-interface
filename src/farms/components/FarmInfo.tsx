@@ -1,6 +1,6 @@
 import React from "react";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import Loader from "../../common/components/Loader";
+import { FarmType } from "../model/reducer";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import AddLpInfo from "./AddLpInfo";
 import RewardInfo from "./RewardsInfo";

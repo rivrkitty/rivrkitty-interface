@@ -1,6 +1,5 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { Button, Link, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import AmountTextField from "../../common/components/AmountTextField";
@@ -11,6 +10,7 @@ import { convertAmountToRawNumber } from "../../utils/bignumber";
 import { enqueueSnackbar } from "../../common/redux/snackbar";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import { useFarms } from "../redux/fetchFarms";
+import { FarmType } from "../model/reducer";
 
 export default function Withdraw(props: { item: FarmType }) {
   const { item } = props;

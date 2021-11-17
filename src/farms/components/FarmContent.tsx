@@ -1,9 +1,9 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import FarmInfo from "./FarmInfo";
+import { FarmType } from "../model/reducer";
 
 export default function FarmContent(props: { item: FarmType }) {
   const { item } = props;

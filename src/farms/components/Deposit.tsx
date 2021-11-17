@@ -1,12 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Grid from "@mui/material/Grid";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { Button, Link, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import AmountTextField from "../../common/components/AmountTextField";
 import BigNumber from "bignumber.js";
 import { useFetchBalances } from "../redux/fetchBalances";
-import { TokensMap } from "../model/reducer";
+import { FarmType, TokensMap } from "../model/reducer";
 import { useFetchApproval } from "../redux/fetchApproval";
 import { useSnackbar } from "notistack";
 import { useFetchDeposit } from "../redux/fetchDeposit";

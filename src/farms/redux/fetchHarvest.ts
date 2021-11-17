@@ -1,4 +1,3 @@
-import { FarmType } from "./../../../rivrkitty-common/farms/models";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReducerBuilder } from "typescript-fsa-reducers";
@@ -7,7 +6,7 @@ import Web3 from "web3";
 import { createAsync } from "../../utils/reduxCreators";
 import { Store } from "../../utils/rootReducer";
 import { deposit } from "../../web3/deposit";
-import { FarmsState } from "../model/reducer";
+import { FarmsState, FarmType } from "../model/reducer";
 
 type BaseFetchHarvestProps = {
   contractAddress: string;

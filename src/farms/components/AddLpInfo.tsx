@@ -4,8 +4,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { getSingleAssetSrc } from "../../utils/getSingleAssetSrc";
+import { FarmType } from "../model/reducer";
 
 const getRewardsText = (tokens: string[]) => tokens.join(", ");
 

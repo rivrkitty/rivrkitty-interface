@@ -1,6 +1,27 @@
 import BigNumber from "bignumber.js";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { RequestState } from "../../common/model/reducer";
+
+export type FarmType = {
+  id: string;
+  poolId: number;
+  name: string;
+  platform: string;
+  platformUrl: string;
+  chefAddress: string;
+  addRewardChefAddress?: string;
+  addRewardChefPid?: number;
+  addRewardChefPerBlockName?: string;
+  addRewardChefPerBlockType?: "seconds" | "block";
+  tokenName: string;
+  tokenAddress: string;
+  tokenDecimals: number;
+  tokenAssets: string[];
+  tokenAssetAddresses: string[];
+  buyTokenUrl: string;
+  rewardTokens: string[];
+  rewardTokensAddress: string[];
+  rewardTokensDecimals: number[];
+};
 
 export type Token = {
   symbol: string;

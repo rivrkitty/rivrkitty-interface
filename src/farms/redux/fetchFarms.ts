@@ -1,4 +1,4 @@
-import { TokensMap } from "./../model/reducer";
+import { FarmType, TokensMap } from "./../model/reducer";
 import { ReducerBuilder } from "typescript-fsa-reducers";
 import * as R from "ramda";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,6 @@ import { useCallback } from "react";
 import { createAsync } from "../../utils/reduxCreators";
 import { FarmsState } from "../model/reducer";
 import { API } from "../../utils/api";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { Store } from "../../utils/rootReducer";
 
 export const fetchFarms = createAsync<

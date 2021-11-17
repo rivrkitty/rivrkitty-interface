@@ -1,8 +1,8 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
-import { FarmType } from "../../../rivrkitty-common/farms/models";
 import FarmHeader from "./FarmHeader";
 import FarmContent from "./FarmContent";
+import { FarmType } from "../model/reducer";
 
 export default function Farm(props: { item: FarmType }) {
   const { item } = props;
