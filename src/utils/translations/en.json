@@ -5,6 +5,7 @@
     "menuNFTs": "NFTs (coming soon)",
     "menuDocumentation": "Documentation",
     "walletConnect": "Connect to a wallet",
+    "wrongNetworkInfo": "Please connect to Moonriver network to continue.",
     "fetchError": "Oooops... Something went wrong. Please Retry to proceed.",
     "fetchRetry": "Retry",
     "farmsTitle": "Farms",

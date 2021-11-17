@@ -13,6 +13,9 @@ export const getNetworkConnectors = (): Partial<ICoreOptions> => ({
   },
 });
 
+export const isValidNetworkId = (networkId: number) =>
+  [1285, 1287].includes(networkId);
+
 export const getNetworkMulticall = (networkId: number) => {
   switch (networkId) {
     case 1285:
@@ -36,7 +39,7 @@ export const getNetworkAdditionalRewardCalc = (networkId: number) => {
 };
 
 const networkTxUrls: { [networkId: number]: (hash: string) => string } = {
-  1285: (hash: string) =>
-    `https://blockscout.moonriver.moonbeam.network/tx/${hash}`,
+  1285: (hash: string) => `https://moonriver.moonscan.io/tx/${hash}`,
+  1287: (hash: string) => `https://moonbase.moonscan.io/tx/${hash}`,
 };
 export const getNetworkTxUrl = (networkId: number) => networkTxUrls[networkId];

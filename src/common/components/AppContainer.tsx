@@ -6,6 +6,7 @@ import Header from "./Header";
 import Background from "./Background/Background";
 import Notifier from "./Notifier";
 import Fetcher from "./Fetcher";
+import NetworkChecker from "./NetworkChecker";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -57,7 +58,7 @@ export default function AppContainer(props: Props) {
         }}
       />
       <div className={clsx(classes.content, classes.overBackground)}>
-        {children}
+        <NetworkChecker>{children}</NetworkChecker>
       </div>
       <Notifier />
       <Fetcher />
