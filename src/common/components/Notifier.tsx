@@ -58,6 +58,7 @@ const Notifier = () => {
           ? () => (
               <Button
                 onClick={() =>
+                  networkId &&
                   window.open(getNetworkTxUrl(networkId)(hash), "_blank")
                 }
               >

@@ -9,13 +9,17 @@ import { API } from "../../utils/api";
 import { FarmType } from "../../../rivrkitty-common/farms/models";
 import { Store } from "../../utils/rootReducer";
 
-export const fetchFarms = createAsync<{ networkId: number }, FarmType[], Error>(
-  "FETCH_FARMS",
-  async ({ networkId }, _1, _2) => {
-    const result = await API.get<FarmType[]>(`/farms/${networkId}`);
-    return result.data;
+export const fetchFarms = createAsync<
+  { networkId: number | null },
+  FarmType[] | null,
+  Error
+>("FETCH_FARMS", async ({ networkId }, _1, _2) => {
+  if (!networkId) {
+    return null;
   }
-);
+  const result = await API.get<FarmType[]>(`/farms/${networkId}`);
+  return result.data;
+});
 
 export function useFarms() {
   const dispatch = useDispatch();
@@ -23,7 +27,9 @@ export function useFarms() {
 
   const { farms, requestState } = useSelector(
     (state: Store) => ({
-      farms: state.farms.farms[networkId] as FarmType[] | undefined,
+      farms: networkId
+        ? (state.farms.farms[networkId] as FarmType[] | undefined)
+        : null,
       requestState: state.farms.requestState,
     }),
     shallowEqual
@@ -83,12 +89,14 @@ export const builderHandler = (
         requestState: { error, ongoing: false },
       })
     )
-    .case(
-      fetchFarms.async.done,
-      (state, { params: { networkId }, result }) =>
-        R.mergeDeepRight(state, {
-          farms: { [networkId]: result },
-          tokens: getTokensFromFarms(result, state.tokens),
-          requestState: { error: false, ongoing: false },
-        }) as any
-    );
+    .case(fetchFarms.async.done, (state, { params: { networkId }, result }) => {
+      const change: any = {
+        requestState: { error: false, ongoing: false },
+      };
+      if (networkId && result) {
+        change["farms"] = { [networkId]: result };
+        change["tokens"] = getTokensFromFarms(result, state.tokens);
+      }
+
+      return R.mergeDeepRight(state, change) as any;
+    });

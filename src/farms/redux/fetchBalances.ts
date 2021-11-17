@@ -19,7 +19,7 @@ import { CallContext } from "ethereum-multicall/dist/esm/models";
 
 export const fetchBalances = createAsync<
   {
-    networkId: number;
+    networkId: number | null;
     address: string | null;
     web3: Web3 | null;
     tokens: TokensMap;
@@ -27,7 +27,7 @@ export const fetchBalances = createAsync<
   TokensMap,
   Error
 >("FETCH_BALANCES", async ({ networkId, address, web3, tokens }, _1, _2) => {
-  if (!address || !web3) {
+  if (!address || !web3 || Object.values(tokens).length === 0 || !networkId) {
     return {};
   }
 

@@ -28,12 +28,13 @@ export default function Fetcher() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchFarms]);
 
+  const farmsExist = farms && farms.length > 0;
   React.useEffect(() => {
     const fetch = () => {
-      if (!fetchBalancesRequestState.ongoing) {
+      if (!fetchBalancesRequestState.ongoing && farmsExist) {
         fetchBalances({ tokens });
       }
-      if (!fetchPoolInfoPending && farms && farms.length > 0) {
+      if (!fetchPoolInfoPending && farmsExist) {
         fetchPoolInfo({ farms: farms });
       }
     };
@@ -44,6 +45,6 @@ export default function Fetcher() {
       clearInterval(id);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchBalances, fetchPoolInfo]);
+  }, [fetchBalances, fetchPoolInfo, farmsExist]);
   return null;
 }

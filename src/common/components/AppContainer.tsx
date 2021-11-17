@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Header from "./Header";
 import Background from "./Background/Background";
 import Notifier from "./Notifier";
+import Fetcher from "./Fetcher";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -59,6 +60,7 @@ export default function AppContainer(props: Props) {
         {children}
       </div>
       <Notifier />
+      <Fetcher />
     </div>
   );
 }

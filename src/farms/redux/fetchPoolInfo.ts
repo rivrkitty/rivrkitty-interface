@@ -31,7 +31,7 @@ type BaseFetchPoolInfoProps = {
 };
 
 interface FetchPoolInfoProps extends BaseFetchPoolInfoProps {
-  networkId: number;
+  networkId: number | null;
   address: string | null;
   web3: Web3 | null;
 }
@@ -43,7 +43,7 @@ export const fetchPoolInfo = createAsync<
 >(
   "FETCH_POOL_INFO",
   async ({ address, web3, networkId, farms, pid, chefAddress }, _1, _2) => {
-    if (!web3 || !address) {
+    if (!web3 || !address || !networkId) {
       return {};
     }
     if (farms.length === 0) {

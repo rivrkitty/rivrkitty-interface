@@ -1,9 +1,10 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
 import BigNumber from "bignumber.js";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FarmType } from "../../../rivrkitty-common/farms/models";
+import { getSingleAssetSrc } from "../../utils/getSingleAssetSrc";
 import { useFarms } from "../redux/fetchFarms";
 import { useFetchHarvest } from "../redux/fetchHarvest";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
@@ -54,30 +55,39 @@ export default function RewardInfo(props: { item: FarmType }) {
           item
           xs={hasTwoRewards ? 6 : 12}
           lg={hasTwoRewards ? 4 : 8}
-          sx={{ display: "flex", flexDirection: "column" }}
+          sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
         >
-          <Typography variant="body1">
-            {tok}{" "}
-            <Box sx={{ color: "primary.main", display: "inline" }}>
-              {t("farmingEarned")}
-            </Box>
-          </Typography>
-          <Typography variant="h5" fontWeight="600">
-            {getAmountText(
-              index === 0
-                ? infoPendingReward(
-                    item.chefAddress,
-                    item.tokenAddress,
-                    item.poolId
-                  )
-                : infoAddPendingReward(
-                    item.chefAddress,
-                    item.tokenAddress,
-                    item.poolId
-                  )
-            )}{" "}
-            {tok}
-          </Typography>
+          <Avatar
+            sx={{ height: 44, width: 44, marginRight: 1 }}
+            alt={tok}
+            variant="circular"
+            imgProps={{ style: { objectFit: "contain" } }}
+            src={getSingleAssetSrc(tok).default}
+          />
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1">
+              {tok}{" "}
+              <Box sx={{ color: "primary.main", display: "inline" }}>
+                {t("farmingEarned")}
+              </Box>
+            </Typography>
+            <Typography variant="h5" fontWeight="600">
+              {getAmountText(
+                index === 0
+                  ? infoPendingReward(
+                      item.chefAddress,
+                      item.tokenAddress,
+                      item.poolId
+                    )
+                  : infoAddPendingReward(
+                      item.chefAddress,
+                      item.tokenAddress,
+                      item.poolId
+                    )
+              )}{" "}
+              {tok}
+            </Typography>
+          </Box>
         </Grid>
       ))}
       <Grid item xs={12} lg={4}>

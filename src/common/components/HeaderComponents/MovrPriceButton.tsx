@@ -26,7 +26,7 @@ export default function MovrPriceButton() {
         <>
           <Avatar
             alt="rkittyImg"
-            src={getSingleAssetSrc("MOVR").default}
+            src={getSingleAssetSrc("WMOVR").default}
             style={{
               width: "24px",
               height: "24px",

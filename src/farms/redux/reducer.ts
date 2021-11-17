@@ -8,6 +8,7 @@ import { builderHandler as fetchUserInfoHandler } from "./fetchPoolInfo";
 import { builderHandler as fetchHarvestHandler } from "./fetchHarvest";
 import { FarmsState } from "../model/reducer";
 import { createRequestState } from "../../common";
+import { networkChanged } from "../../common/redux/connectWallet";
 
 const initialState: FarmsState = {
   farms: {},
@@ -31,4 +32,7 @@ export default reducerWithInitialState(initialState)
   .withHandling(fetchDepositHandler)
   .withHandling(fetchWithdrawHandler)
   .withHandling(fetchUserInfoHandler)
-  .withHandling(fetchHarvestHandler);
+  .withHandling(fetchHarvestHandler)
+  .case(networkChanged, () => ({
+    ...initialState,
+  }));

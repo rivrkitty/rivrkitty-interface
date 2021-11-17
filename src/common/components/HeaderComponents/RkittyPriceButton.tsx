@@ -4,6 +4,8 @@ import Hidden from "@mui/material/Hidden";
 import Avatar from "@mui/material/Avatar";
 import PriceTickerButton from "./PriceTickerButton";
 import { getSingleAssetSrc } from "../../../utils/getSingleAssetSrc";
+import { useFetchPrices } from "../../redux/fetchPrices";
+import { formatPrice } from "../../../utils/bignumber";
 
 const useStyles = makeStyles({
   button: {
@@ -13,6 +15,10 @@ const useStyles = makeStyles({
 
 export default function RkittyPriceButton() {
   const classes = useStyles();
+
+  const { prices } = useFetchPrices();
+
+  const price = prices["rivrkitty"];
 
   return (
     <>
@@ -33,7 +39,7 @@ export default function RkittyPriceButton() {
               marginRight: "8px",
             }}
           />
-          <Hidden smDown>{`$0.00`}</Hidden>
+          <Hidden smDown>{price ? formatPrice(price) : ""}</Hidden>
         </>
       </PriceTickerButton>
     </>

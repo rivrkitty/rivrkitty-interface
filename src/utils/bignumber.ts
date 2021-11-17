@@ -14,3 +14,10 @@ export function convertAmountToRawNumber(
     .decimalPlaces(0, BigNumber.ROUND_DOWN)
     .toString(10);
 }
+
+export function formatPrice(value: number, decimalPlaces = 8) {
+  const formatted = new BigNumber(value)
+    .decimalPlaces(decimalPlaces, BigNumber.ROUND_DOWN)
+    .toFormat();
+  return `$${formatted}`;
+}
