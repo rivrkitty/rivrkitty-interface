@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { useTranslation } from "react-i18next";
 import WalletButton from "./WalletButton";
-import MovrPriceButton from "./HeaderComponents/MovrPriceButton";
 import RkittyPriceButton from "./HeaderComponents/RkittyPriceButton";
 import MoreMenu from "./HeaderComponents/MoreMenu";
 import MobileMenu from "./HeaderComponents/MobileMenu";
@@ -95,7 +94,6 @@ export default function Header(props: { className?: string }) {
         ))}
         <Divider />
         <Box flex={1} />
-        <MovrPriceButton />
         <RkittyPriceButton />
         <WalletButton />
         <MoreMenu />
