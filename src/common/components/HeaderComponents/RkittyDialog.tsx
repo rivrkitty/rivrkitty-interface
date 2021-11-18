@@ -1,6 +1,7 @@
 import { Button, DialogContent, Grid, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Dialog from "@mui/material/Dialog";
+import { Box } from "@mui/system";
 import BigNumber from "bignumber.js";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -9,6 +10,7 @@ import { getSingleAssetSrc } from "../../../utils/getSingleAssetSrc";
 import { useFetchPrices } from "../../redux/fetchPrices";
 import huckle from "../../../assets/token/Huckleberry.png";
 import solar from "../../../assets/token/SOLAR.png";
+import rubic from "../../../assets/token/RUBIC.png";
 
 const tokenSupply = new BigNumber(10).pow(12);
 
@@ -72,7 +74,7 @@ export default function RkittyDialog(props: Props) {
         <Typography variant="h6">
           <b>${price.times(tokenSupply).toFormat()}</b>
         </Typography>
-        <Grid container spacing={3} sx={{ marginTop: 2 }}>
+        <Grid container spacing={2} sx={{ marginTop:1 }}>
           <Grid item>
             <Button
               href="https://www.huckleberry.finance/#/swap?outputCurrency=0xC2b0435276139731d82Ae2Fa8928c9b9De0761c1"
@@ -100,6 +102,30 @@ export default function RkittyDialog(props: Props) {
                 <img
                   src={solar}
                   alt="Solar"
+                  style={{ width: 30, height: 30 }}
+                />
+              }
+            >
+              {t("buyOn")}
+            </Button>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          justifyContent="center"
+          spacing={2}
+          sx={{ marginTop: 0 }}
+        >
+          <Grid item>
+            <Button
+              href="https://rubic.exchange/?from=BNB&amp;to=RKITTY&amp;fromChain=BSC&amp;toChain=MOONRIVER&amp;amount=1"
+              variant="outlined"
+              target="_blank"
+              rel="noopener"
+              endIcon={
+                <img
+                  src={rubic}
+                  alt="Rubic"
                   style={{ width: 30, height: 30 }}
                 />
               }
