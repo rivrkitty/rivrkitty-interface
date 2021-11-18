@@ -43,6 +43,13 @@
     "farmingEarned": "EARNED",
     "farmsHarvestSuccess": "Harvest success",
     "farmsHarvestError": "Harvest error: {{error}}",
-    "farmsHarvesting": "Harvesting..."
+    "farmsHarvesting": "Harvesting...",
+    "menuTelegram": "Telegram",
+    "menuTwitter": "Twitter",
+    "menuGithub": "Github",
+    "menuTelegramSecondaryText": "Join Our Telegram Channel",
+    "menuTwitterSecondaryText":"Follow us on Twitter",
+    "menuGithubSecondaryText": "Check our code on Github",
+    "menuDocumentationSecondaryText": "New to RivrKitty? Check out our documentation"
   }
 }
