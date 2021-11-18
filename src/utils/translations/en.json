@@ -14,6 +14,7 @@
     "farmsPendingTitle": "Pending $PAWS Rewards",
     "farmsPoolRate": "Pool rate",
     "farmsPoolRateDetails": "/ week",
+    "farmsPoolRateDetailsSmall": "/w",
     "farmsLPDescriptionTitle": "Step 1",
     "farmsLPDescription": "Once you have added liquidity to the {{ token }} pool on {{ platform }} you can stake your liquidity tokens to earn {{ rewards }} on this page.",
     "farmsAddLiquidity": "Add {{ token }} Liquidity",

@@ -30,7 +30,9 @@ function App() {
     <Provider store={store}>
       <SnackbarProvider maxSnack={3}>
         <CssBaseline />
-        <Helmet></Helmet>
+        <Helmet>
+          <title>River Kitty</title>
+        </Helmet>
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
             <AppContainer>

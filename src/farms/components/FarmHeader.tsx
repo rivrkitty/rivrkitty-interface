@@ -9,6 +9,8 @@ import IconButton from "@mui/material/IconButton";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import BigNumber from "bignumber.js";
 import { FarmType } from "../model/reducer";
+import Hidden from "@mui/material/Hidden";
+import { Theme, useMediaQuery } from "@mui/material";
 
 const formatPoolRate = (poolRate: BigNumber | null) => {
   if (!poolRate) {
@@ -21,10 +23,14 @@ const formatPoolRate = (poolRate: BigNumber | null) => {
 export default function FarmHeader(props: { item: FarmType }) {
   const { item } = props;
   const { t } = useTranslation();
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   const { infoPoolRate } = useFetchPoolInfo();
 
   const hasTwoRewards = item.rewardTokens.length === 2;
+
   return (
     <Box
       sx={{
@@ -46,7 +52,7 @@ export default function FarmHeader(props: { item: FarmType }) {
         />
       ))}
       <Typography
-        variant="h5"
+        variant={isMobile ? "h6" : "h5"}
         fontWeight="600"
         sx={{ marginLeft: 1, marginRight: 1 }}
       >
@@ -61,30 +67,34 @@ export default function FarmHeader(props: { item: FarmType }) {
         <OpenInNewIcon />
       </IconButton>
       <Box sx={{ flex: 1 }} />
-      <Typography variant="body2" sx={{ marginRight: 1, marginTop: "6px" }}>
-        {t("farmsPoolRate")}
-      </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-end",
-        }}
-      >
-        {item.rewardTokens.map((tok, index) => (
-          <Typography variant={hasTwoRewards ? "body1" : "h6"}>
-            {formatPoolRate(
-              infoPoolRate(
-                index === 0 ? item.chefAddress : item.addRewardChefAddress!!,
-                item.rewardTokensAddress[index],
-                index === 0 ? item.poolId : item.addRewardChefPid!!
-              )
-            )}{" "}
-            <b>{tok}</b> {t("farmsPoolRateDetails")}
+      <Hidden smDown>
+        <Hidden mdDown>
+          <Typography variant="body2" sx={{ marginRight: 1, marginTop: "6px" }}>
+            {t("farmsPoolRate")}
           </Typography>
-        ))}
-      </Box>
+        </Hidden>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "flex-end",
+          }}
+        >
+          {item.rewardTokens.map((tok, index) => (
+            <Typography variant={hasTwoRewards ? "body1" : "h6"}>
+              {formatPoolRate(
+                infoPoolRate(
+                  index === 0 ? item.chefAddress : item.addRewardChefAddress!!,
+                  item.rewardTokensAddress[index],
+                  index === 0 ? item.poolId : item.addRewardChefPid!!
+                )
+              )}{" "}
+              <b>{tok}</b> {t("farmsPoolRateDetails")}
+            </Typography>
+          ))}
+        </Box>
+      </Hidden>
     </Box>
   );
 }
