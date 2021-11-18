@@ -29,6 +29,8 @@ export const getNetworkMulticall = (networkId: number) => {
 
 export const getNetworkAdditionalRewardCalc = (networkId: number) => {
   switch (networkId) {
+    case 1285:
+      return "0x95018DD9DDDdC0C346Ac731D983362bFaf3e3d9B";
     case 1287:
       return "0x982365Eb0A3aE7C910810Ed45757DCBca1754712";
     default:

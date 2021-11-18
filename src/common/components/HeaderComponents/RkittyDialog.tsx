@@ -1,7 +1,6 @@
 import { Button, DialogContent, Grid, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Dialog from "@mui/material/Dialog";
-import { Box } from "@mui/system";
 import BigNumber from "bignumber.js";
 import React from "react";
 import { useTranslation } from "react-i18next";
