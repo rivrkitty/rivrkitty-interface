@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MediaQuery from 'react-responsive'
+import MediaQuery from "react-responsive";
 import makeStyles from "@mui/styles/makeStyles";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
@@ -53,7 +53,7 @@ export default function Header(props: { className?: string }) {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
-  }
+  };
 
   return (
     <Box
@@ -65,29 +65,25 @@ export default function Header(props: { className?: string }) {
         alignItems: "center",
         backgroundColor: "secondary.main",
         ...defaultContentPadding,
-        ... isMobileMenuOpen ? { height:  "auto !important" } : {},
+        ...(isMobileMenuOpen ? { height: "auto !important" } : {}),
       }}
     >
       <img className={classes.logo} src={logo} alt="RivrKitty" />
       <MediaQuery maxWidth={1023}>
-        <div style={{
-            marginLeft: "auto"
-        }}>
-          <MobileMenu 
+        <div
+          style={{
+            marginLeft: "auto",
+          }}
+        >
+          <MobileMenu
             isOpen={isMobileMenuOpen}
             toggleMobileMenu={toggleMobileMenu}
           />
         </div>
       </MediaQuery>
-      {
-        isMobileMenuOpen && (
-          <MobileMenuList 
-            MENU_ITEMS={MENU_ITEMS} 
-            classes={classes}
-            t={t}
-          />
-        )
-      }
+      {isMobileMenuOpen && (
+        <MobileMenuList MENU_ITEMS={MENU_ITEMS} classes={classes} t={t} />
+      )}
       <MediaQuery minWidth={1024}>
         {MENU_ITEMS.map((i) => (
           <Link
