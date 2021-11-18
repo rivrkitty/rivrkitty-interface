@@ -6,6 +6,7 @@ import PriceTickerButton from "./PriceTickerButton";
 import { getSingleAssetSrc } from "../../../utils/getSingleAssetSrc";
 import { useFetchPrices } from "../../redux/fetchPrices";
 import { formatPrice } from "../../../utils/bignumber";
+import RkittyDialog from "./RkittyDialog";
 
 const useStyles = makeStyles({
   button: {
@@ -17,8 +18,11 @@ export default function RkittyPriceButton() {
   const classes = useStyles();
 
   const { prices } = useFetchPrices();
+  const [kittyDialogOpen, setKittyDialogOpen] = React.useState(false);
 
   const price = prices["rivrkitty"];
+
+  const handleClick = () => setKittyDialogOpen(true);
 
   return (
     <>
@@ -27,7 +31,7 @@ export default function RkittyPriceButton() {
         variant="contained"
         color="secondary"
         className={classes.button}
-        // onClick={}  method to open pop-up
+        onClick={handleClick}
       >
         <>
           <Avatar
@@ -39,9 +43,15 @@ export default function RkittyPriceButton() {
               marginRight: "8px",
             }}
           />
-          <Hidden smDown>{price ? formatPrice(price) : ""}</Hidden>
+          <Hidden smDown>
+            <b>{price ? formatPrice(price) : ""}</b>
+          </Hidden>
         </>
       </PriceTickerButton>
+      <RkittyDialog
+        open={kittyDialogOpen}
+        onClose={() => setKittyDialogOpen(false)}
+      />
     </>
   );
 }

@@ -15,7 +15,7 @@ export function convertAmountToRawNumber(
     .toString(10);
 }
 
-export function formatPrice(value: number, decimalPlaces = 8) {
+export function formatPrice(value: number | BigNumber, decimalPlaces = 8) {
   const formatted = new BigNumber(value)
     .decimalPlaces(decimalPlaces, BigNumber.ROUND_DOWN)
     .toFormat();

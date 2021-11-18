@@ -12,6 +12,7 @@ import MobileMenu from "./HeaderComponents/MobileMenu";
 import MobileMenuList from "./HeaderComponents/MobileMenuList";
 import logo from "../../assets/logo.png";
 import { defaultContentPadding } from "../../utils/theme";
+import { useLocation } from "react-router";
 
 const MENU_ITEMS = [
   {
@@ -20,9 +21,6 @@ const MENU_ITEMS = [
   },
   {
     titleKey: "menuNFTs",
-  },
-  {
-    titleKey: "menuDocumentation",
   },
 ];
 
@@ -37,6 +35,7 @@ const useStyles = makeStyles({
   link: {
     marginLeft: 8,
     marginRight: 8,
+    color: "white",
   },
   logo: {
     height: 30,
@@ -48,7 +47,7 @@ export default function Header(props: { className?: string }) {
   const classes = useStyles();
 
   const { t } = useTranslation();
-
+  const location = useLocation();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -90,7 +89,10 @@ export default function Header(props: { className?: string }) {
             className={classes.link}
             key={i.titleKey}
             href={i.path || "#"}
-            underline="hover"
+            underline={location.pathname === i.path ? "always" : "hover"}
+            sx={{
+              fontWeight: location.pathname === i.path ? 800 : "inherit",
+            }}
           >
             {t(i.titleKey)}
           </Link>
