@@ -66,6 +66,7 @@ export const fetchPoolInfo = createAsync<
 
     const basePoolInfoValues = {
       allocPoints: new BigNumber(0),
+      totalLp: new BigNumber(0),
       userBalance: new BigNumber(0),
       pendingReward: new BigNumber(0),
       addPendingReward: new BigNumber(0),
@@ -220,6 +221,7 @@ export const fetchPoolInfo = createAsync<
               [poolId]: {
                 ...(poolInfo[chefAddress][poolId] || basePoolInfoValues),
                 allocPoints: new BigNumber(c.returnValues[1].hex),
+                totalLp: new BigNumber(c.returnValues[5].hex),
               },
             };
           } else if (c.reference.startsWith("pendingReward_")) {
@@ -386,12 +388,22 @@ export function useFetchPoolInfo() {
     );
   };
 
+  const infoTotalLp = (
+    chefAddress: string,
+    tokenAddress: string,
+    pid: number
+  ) => {
+    const info = getPoolInfo(poolInfo, chefAddress, pid);
+    return byDecimals(info?.totalLp || 0, tokens[tokenAddress].decimals);
+  };
+
   return {
     poolInfo,
     infoTokenBalance,
     infoPendingReward,
     infoAddPendingReward,
     infoPoolRate,
+    infoTotalLp,
     hasTokenBalance,
     fetchPoolInfo: boundAction,
     fetchPoolInfoPending,

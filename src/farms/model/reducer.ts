@@ -38,6 +38,7 @@ export type PoolInfo = {
   userBalance: BigNumber;
   pendingReward: BigNumber;
   addPendingReward: BigNumber;
+  totalLp: BigNumber;
 };
 
 export type TokensMap = { [token: string]: Token };

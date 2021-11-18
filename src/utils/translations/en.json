@@ -28,6 +28,7 @@
     "farmsDeposit": "Deposit",
     "farmsDepositing": "Depositing...",
     "farmsWithdrawBalance": "Your Staked: ",
+    "farmsTvl": "TVL: ",
     "farmsWithdraw": "Withdraw",
     "farmsHarvestAll": "Harvest All",
     "farmsHarvest": "Harvest",
@@ -48,7 +49,7 @@
     "menuTwitter": "Twitter",
     "menuGithub": "Github",
     "menuTelegramSecondaryText": "Join Our Telegram Channel",
-    "menuTwitterSecondaryText":"Follow us on Twitter",
+    "menuTwitterSecondaryText": "Follow us on Twitter",
     "menuGithubSecondaryText": "Check our code on Github",
     "menuDocumentationSecondaryText": "New to RivrKitty? Check out our documentation"
   }

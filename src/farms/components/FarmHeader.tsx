@@ -27,7 +27,7 @@ export default function FarmHeader(props: { item: FarmType }) {
     theme.breakpoints.down("sm")
   );
 
-  const { infoPoolRate } = useFetchPoolInfo();
+  const { infoPoolRate, infoTotalLp } = useFetchPoolInfo();
 
   const hasTwoRewards = item.rewardTokens.length === 2;
 
@@ -51,13 +51,25 @@ export default function FarmHeader(props: { item: FarmType }) {
           src={getSingleAssetSrc(a).default}
         />
       ))}
-      <Typography
-        variant={isMobile ? "h6" : "h5"}
-        fontWeight="600"
-        sx={{ marginLeft: 1, marginRight: 1 }}
+      <Box
+        sx={{
+          marginLeft: 1,
+          marginRight: 1,
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
-        {item.name}
-      </Typography>
+        <Typography variant={"h6"} fontWeight="600">
+          {item.name}
+        </Typography>
+        <Typography variant="caption" sx={{ marginTop: "-6px" }}>
+          {t("farmsTvl")}{" "}
+          {infoTotalLp(item.chefAddress, item.tokenAddress, item.poolId)
+            .decimalPlaces(8, BigNumber.ROUND_DOWN)
+            .toFormat()}
+          {" LP"}
+        </Typography>
+      </Box>
       <IconButton
         color="primary"
         href={item.buyTokenUrl}
