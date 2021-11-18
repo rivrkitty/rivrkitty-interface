@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import MediaQuery from 'react-responsive'
 import makeStyles from "@mui/styles/makeStyles";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
@@ -8,6 +9,8 @@ import WalletButton from "./WalletButton";
 import MovrPriceButton from "./HeaderComponents/MovrPriceButton";
 import RkittyPriceButton from "./HeaderComponents/RkittyPriceButton";
 import MoreMenu from "./HeaderComponents/MoreMenu";
+import MobileMenu from "./HeaderComponents/MobileMenu";
+import MobileMenuList from "./HeaderComponents/MobileMenuList";
 import logo from "../../assets/logo.png";
 import { defaultContentPadding } from "../../utils/theme";
 
@@ -47,34 +50,56 @@ export default function Header(props: { className?: string }) {
 
   const { t } = useTranslation();
 
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  }
+
   return (
     <Box
       className={props.className}
       sx={{
         display: "flex",
         flexDirection: "row",
+        flexFlow: "row wrap",
         alignItems: "center",
         backgroundColor: "secondary.main",
         ...defaultContentPadding,
+        ... isMobileMenuOpen ? { height:  "auto !important" } : {},
       }}
     >
       <img className={classes.logo} src={logo} alt="RivrKitty" />
-      {MENU_ITEMS.map((i) => (
-        <Link
-          className={classes.link}
-          key={i.titleKey}
-          href={i.path || "#"}
-          underline="hover"
-        >
-          {t(i.titleKey)}
-        </Link>
-      ))}
-      <Divider />
-      <Box flex={1} />
-      <MovrPriceButton />
-      <RkittyPriceButton />
-      <WalletButton />
-      <MoreMenu />
+      <MediaQuery maxWidth={1023}>
+        <MobileMenu isOpen={isMobileMenuOpen} toggleMobileMenu={toggleMobileMenu}/>
+      </MediaQuery>
+      {
+        isMobileMenuOpen && (
+          <MobileMenuList 
+            MENU_ITEMS={MENU_ITEMS} 
+            classes={classes}
+            t={t}
+          />
+        )
+      }
+      <MediaQuery minWidth={1024}>
+        {MENU_ITEMS.map((i) => (
+          <Link
+            className={classes.link}
+            key={i.titleKey}
+            href={i.path || "#"}
+            underline="hover"
+          >
+            {t(i.titleKey)}
+          </Link>
+        ))}
+        <Divider />
+        <Box flex={1} />
+        <MovrPriceButton />
+        <RkittyPriceButton />
+        <WalletButton />
+        <MoreMenu />
+      </MediaQuery>
     </Box>
   );
 }
