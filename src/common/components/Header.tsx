@@ -70,7 +70,14 @@ export default function Header(props: { className?: string }) {
     >
       <img className={classes.logo} src={logo} alt="RivrKitty" />
       <MediaQuery maxWidth={1023}>
-        <MobileMenu isOpen={isMobileMenuOpen} toggleMobileMenu={toggleMobileMenu}/>
+        <div style={{
+            marginLeft: "auto"
+        }}>
+          <MobileMenu 
+            isOpen={isMobileMenuOpen}
+            toggleMobileMenu={toggleMobileMenu}
+          />
+        </div>
       </MediaQuery>
       {
         isMobileMenuOpen && (
