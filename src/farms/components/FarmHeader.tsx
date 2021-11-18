@@ -10,7 +10,6 @@ import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import BigNumber from "bignumber.js";
 import { FarmType } from "../model/reducer";
 import Hidden from "@mui/material/Hidden";
-import { Theme, useMediaQuery } from "@mui/material";
 
 const formatPoolRate = (poolRate: BigNumber | null) => {
   if (!poolRate) {
@@ -23,9 +22,6 @@ const formatPoolRate = (poolRate: BigNumber | null) => {
 export default function FarmHeader(props: { item: FarmType }) {
   const { item } = props;
   const { t } = useTranslation();
-  const isMobile = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("sm")
-  );
 
   const { infoPoolRate, infoTotalLp } = useFetchPoolInfo();
 

@@ -21,9 +21,6 @@ const MENU_ITEMS = [
   {
     titleKey: "menuNFTs",
   },
-  {
-    titleKey: "menuDocumentation",
-  },
 ];
 
 const useStyles = makeStyles({
@@ -70,12 +67,12 @@ export default function Header(props: { className?: string }) {
     >
       <img className={classes.logo} src={logo} alt="RivrKitty" />
       <MediaQuery maxWidth={1023}>
-      <div
+        <div
           style={{
             marginLeft: "auto",
           }}
         >
-          <MobileMenu 
+          <MobileMenu
             isOpen={isMobileMenuOpen}
             toggleMobileMenu={toggleMobileMenu}
           />

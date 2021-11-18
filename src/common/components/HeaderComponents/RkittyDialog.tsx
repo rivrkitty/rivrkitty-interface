@@ -1,7 +1,6 @@
 import { Button, DialogContent, Grid, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Dialog from "@mui/material/Dialog";
-import { Box } from "@mui/system";
 import BigNumber from "bignumber.js";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -74,7 +73,7 @@ export default function RkittyDialog(props: Props) {
         <Typography variant="h6">
           <b>${price.times(tokenSupply).toFormat()}</b>
         </Typography>
-        <Grid container spacing={2} sx={{ marginTop:1 }}>
+        <Grid container spacing={2} sx={{ marginTop: 1 }}>
           <Grid item>
             <Button
               href="https://www.huckleberry.finance/#/swap?outputCurrency=0xC2b0435276139731d82Ae2Fa8928c9b9De0761c1"
