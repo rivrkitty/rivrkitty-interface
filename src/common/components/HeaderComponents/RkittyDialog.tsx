@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, DialogContent, Grid, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Dialog from "@mui/material/Dialog";
 import { Box } from "@mui/system";
@@ -27,8 +27,17 @@ export default function RkittyDialog(props: Props) {
   const price = new BigNumber(prices["rivrkitty"] || 0);
 
   return (
-    <Dialog onClose={onClose} open={open}>
-      <Box
+    <Dialog
+      onClose={onClose}
+      open={open}
+      PaperProps={{
+        sx: {
+          border: "1px solid #E78579",
+          backgroundColor: "background.default",
+        },
+      }}
+    >
+      <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -42,33 +51,33 @@ export default function RkittyDialog(props: Props) {
           alt="address"
           src={getSingleAssetSrc("RKITTY").default}
           style={{
-            width: "120px",
-            height: "120px",
+            width: "140px",
+            height: "140px",
           }}
         />
-        <Typography variant="body2" sx={{ marginTop: 5 }}>
+        <Typography variant="body1" sx={{ marginTop: 5 }}>
           {t("tokenPrice")}
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="h6">
           <b>{price ? formatPrice(price) : ""}</b>
         </Typography>
-        <Typography variant="body2" sx={{ marginTop: 2 }}>
+        <Typography variant="body1" sx={{ marginTop: 2 }}>
           {t("tokkenSupply")}
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="h6">
           <b>{tokenSupply.toFormat()}</b>
         </Typography>
-        <Typography variant="body2" sx={{ marginTop: 2 }}>
+        <Typography variant="body1" sx={{ marginTop: 2 }}>
           {t("marketCap")}
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="h6">
           <b>${price.times(tokenSupply).toFormat()}</b>
         </Typography>
         <Grid container spacing={3} sx={{ marginTop: 2 }}>
           <Grid item>
             <Button
               href="https://www.huckleberry.finance/#/swap?outputCurrency=0xC2b0435276139731d82Ae2Fa8928c9b9De0761c1"
-              variant="contained"
+              variant="outlined"
               target="_blank"
               rel="noopener"
               endIcon={
@@ -79,13 +88,13 @@ export default function RkittyDialog(props: Props) {
                 />
               }
             >
-              {t("buyOnHuckle")}
+              {t("buyOn")}
             </Button>
           </Grid>
           <Grid item>
             <Button
               href="https://app.solarbeam.io/exchange/swap?outputCurrency=0xC2b0435276139731d82Ae2Fa8928c9b9De0761c1"
-              variant="contained"
+              variant="outlined"
               target="_blank"
               rel="noopener"
               endIcon={
@@ -96,11 +105,11 @@ export default function RkittyDialog(props: Props) {
                 />
               }
             >
-              {t("buyOnSolar")}
+              {t("buyOn")}
             </Button>
           </Grid>
         </Grid>
-      </Box>
+      </DialogContent>
     </Dialog>
   );
 }
