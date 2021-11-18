@@ -23,7 +23,6 @@ export default function MobileMenu(props: MobileMenuProps) {
                     style={{
                     width: "24px",
                     height: "24px",
-                    marginRight: "8px",
                     }}
                 />
             </>
