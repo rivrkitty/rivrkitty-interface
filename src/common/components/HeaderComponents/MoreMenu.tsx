@@ -9,21 +9,22 @@ export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
 
-  const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
     <>
-      <Button variant="text" onClick={handleClick} sx={{ mr: 1, ml: 1, pr: 0 }}>
+      <Button variant="text" onMouseOver={ handleClick} sx={{ mr: 1, ml: 1, pr: 0 }}>
         <>
           <Avatar
             alt="rkittyImg"
@@ -51,8 +52,8 @@ export default function MoreMenu() {
           horizontal: "right",
         }}
       >
-        <div>
-          <MenuList />
+        <div onMouseLeave={handleClose}>
+          <MenuList isMobile={false}/>
         </div>
       </Popover>
     </>

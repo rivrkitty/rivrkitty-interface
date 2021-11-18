@@ -9,7 +9,6 @@ import WalletButton from "./WalletButton";
 import RkittyPriceButton from "./HeaderComponents/RkittyPriceButton";
 import MoreMenu from "./HeaderComponents/MoreMenu";
 import MobileMenu from "./HeaderComponents/MobileMenu";
-import MobileMenuList from "./HeaderComponents/MobileMenuList";
 import logo from "../../assets/logo.png";
 import { defaultContentPadding } from "../../utils/theme";
 import { useLocation } from "react-router";
@@ -21,6 +20,9 @@ const MENU_ITEMS = [
   },
   {
     titleKey: "menuNFTs",
+  },
+  {
+    titleKey: "menuDocumentation",
   },
 ];
 
@@ -64,25 +66,21 @@ export default function Header(props: { className?: string }) {
         alignItems: "center",
         backgroundColor: "secondary.main",
         ...defaultContentPadding,
-        ...(isMobileMenuOpen ? { height: "auto !important" } : {}),
       }}
     >
       <img className={classes.logo} src={logo} alt="RivrKitty" />
       <MediaQuery maxWidth={1023}>
-        <div
+      <div
           style={{
             marginLeft: "auto",
           }}
         >
-          <MobileMenu
+          <MobileMenu 
             isOpen={isMobileMenuOpen}
             toggleMobileMenu={toggleMobileMenu}
           />
         </div>
       </MediaQuery>
-      {isMobileMenuOpen && (
-        <MobileMenuList MENU_ITEMS={MENU_ITEMS} classes={classes} t={t} />
-      )}
       <MediaQuery minWidth={1024}>
         {MENU_ITEMS.map((i) => (
           <Link
