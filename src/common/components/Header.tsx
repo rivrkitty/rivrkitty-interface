@@ -10,7 +10,7 @@ import RkittyPriceButton from "./HeaderComponents/RkittyPriceButton";
 import MoreMenu from "./HeaderComponents/MoreMenu";
 import MobileMenu from "./HeaderComponents/MobileMenu";
 import logo from "../../assets/logo.png";
-import { defaultContentPadding } from "../../utils/theme";
+import { defaultContentPadding, defaultHeaderBg } from "../../utils/theme";
 import { useLocation } from "react-router";
 
 const MENU_ITEMS = [
@@ -61,11 +61,13 @@ export default function Header(props: { className?: string }) {
         flexDirection: "row",
         flexFlow: "row wrap",
         alignItems: "center",
-        backgroundColor: "secondary.main",
+        ...defaultHeaderBg,
         ...defaultContentPadding,
       }}
     >
-      <img className={classes.logo} src={logo} alt="RivrKitty" />
+      <Link href={"https://rivrkitty.com"}>
+        <img className={classes.logo} src={logo} alt="RivrKitty" />
+      </Link>
       <MediaQuery maxWidth={1023}>
         <WalletButton />
         <div
