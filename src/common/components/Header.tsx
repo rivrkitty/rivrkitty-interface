@@ -67,6 +67,7 @@ export default function Header(props: { className?: string }) {
     >
       <img className={classes.logo} src={logo} alt="RivrKitty" />
       <MediaQuery maxWidth={1023}>
+        <WalletButton />
         <div
           style={{
             marginLeft: "auto",

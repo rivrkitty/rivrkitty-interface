@@ -5,6 +5,7 @@
     "menuNFTs": "NFTs (coming soon)",
     "menuDocumentation": "Documentation",
     "walletConnect": "Connect to a wallet",
+    "walletConnectShort": "Connect",
     "wrongNetworkInfo": "Please connect to Moonriver network to continue.",
     "tokenPrice": "Token Price",
     "tokkenSupply": "Token Supply",

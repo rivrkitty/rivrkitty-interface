@@ -1,6 +1,6 @@
 import React from "react";
 import Web3Modal from "web3modal";
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles";
 import Hidden from "@mui/material/Hidden";
 import Avatar from "@mui/material/Avatar";
 import { useTranslation } from "react-i18next";
@@ -59,33 +59,36 @@ export default function WalletButton() {
     }
   }, [dataUrl, address, connected]);
 
-  return <>
-    <RoundedButton
-      disableElevation
-      variant="contained"
-      color="secondary"
-      className={classes.button}
-      onClick={connected ? disconnectWalletCallback : connectWalletCallback}
-    >
-      {connected ? (
-        <>
-          <canvas ref={canvasRef} style={{ display: "none" }} />
-          <Avatar
-            alt="address"
-            src={dataUrl || ""}
-            style={{
-              width: "24px",
-              height: "24px",
-              marginRight: "4px",
-            }}
-          />
-          <Hidden smDown>{shortAddress}</Hidden>
-        </>
-      ) : (
-        <>
-          <Hidden smDown>{t("walletConnect")}</Hidden>
-        </>
-      )}
-    </RoundedButton>
-  </>;
+  return (
+    <>
+      <RoundedButton
+        disableElevation
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        onClick={connected ? disconnectWalletCallback : connectWalletCallback}
+      >
+        {connected ? (
+          <>
+            <canvas ref={canvasRef} style={{ display: "none" }} />
+            <Avatar
+              alt="address"
+              src={dataUrl || ""}
+              style={{
+                width: "24px",
+                height: "24px",
+                marginRight: "4px",
+              }}
+            />
+            <Hidden smDown>{shortAddress}</Hidden>
+          </>
+        ) : (
+          <>
+            <Hidden smDown>{t("walletConnect")}</Hidden>
+            <Hidden mdUp>{t("walletConnectShort")}</Hidden>
+          </>
+        )}
+      </RoundedButton>
+    </>
+  );
 }
