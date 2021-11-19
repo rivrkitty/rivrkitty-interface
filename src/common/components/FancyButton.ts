@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 export default withStyles((theme) => ({
   root: {
     boxShadow: "none",
-    borderRadius: 40,
     textTransform: "none",
     minWidth: 140,
     fontWeight: 600,

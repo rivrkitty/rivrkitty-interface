@@ -11,6 +11,7 @@
     "tokkenSupply": "Token Supply",
     "marketCap": "Market Cap",
     "buyOn": "Buy on",
+    "auditedBy": "Audited by TechRate",
     "fetchError": "Oooops... Something went wrong. Please Retry to proceed.",
     "fetchRetry": "Retry",
     "farmsTitle": "Farms",

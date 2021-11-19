@@ -5,6 +5,7 @@ import Popover from "@mui/material/Popover";
 import Button from "@mui/material/Button";
 import MenuList from "./MenuList";
 
+
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -24,7 +25,11 @@ export default function MoreMenu() {
 
   return (
     <>
-      <Button variant="text" onMouseOver={ handleClick} sx={{ mr: 1, ml: 1, pr: 0 }}>
+      <Button
+        variant="text"
+        onMouseOver={handleClick}
+        sx={{ mr: 1, ml: 1, pr: 0 }}
+      >
         <>
           <Avatar
             alt="rkittyImg"
@@ -42,7 +47,7 @@ export default function MoreMenu() {
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
-        sx={{ mt: 1 }}
+        style={{ top: "16px" }}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "right",
@@ -53,7 +58,7 @@ export default function MoreMenu() {
         }}
       >
         <div onMouseLeave={handleClose}>
-          <MenuList isMobile={false}/>
+          <MenuList isMobile={false} />
         </div>
       </Popover>
     </>

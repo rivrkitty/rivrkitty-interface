@@ -6,6 +6,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import Avatar from "@mui/material/Avatar";
 import { getSingleAssetSrc } from "../../../utils/getSingleAssetSrc";
 import { useTranslation } from "react-i18next";
+import makeStyles from "@mui/styles/makeStyles";
 
 const DESKTOP_MENU_ITEM = [
   {
@@ -39,9 +40,18 @@ const MOBILE_MENU_ITEM = [
   { primaryText: "menuNFTs", secondaryText: "", icon: "", redirectTo: "" },
 ];
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    "&:hover": {
+      borderRadius: "10px",
+    },
+  },
+}));
+
 export default function MenuList(props: { isMobile: boolean }) {
   const { t } = useTranslation();
   const { isMobile } = props;
+  const classes = useStyles();
   const MORE_MENU_ITEM = isMobile
     ? [...MOBILE_MENU_ITEM, ...DESKTOP_MENU_ITEM]
     : DESKTOP_MENU_ITEM;
@@ -54,6 +64,7 @@ export default function MenuList(props: { isMobile: boolean }) {
             component="a"
             target="_blank"
             href={eachData.redirectTo}
+            className={classes.container}
           >
             <ListItemText
               primary={t(eachData.primaryText)}
