@@ -85,7 +85,7 @@ export default function WalletButton() {
         ) : (
           <>
             <Hidden smDown>{t("walletConnect")}</Hidden>
-            <Hidden mdUp>{t("walletConnectShort")}</Hidden>
+            <Hidden smUp>{t("walletConnectShort")}</Hidden>
           </>
         )}
       </RoundedButton>
