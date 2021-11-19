@@ -42,3 +42,7 @@ export default createTheme({
     },
   },
 });
+
+export const defaultHeaderBg = {
+  backgroundColor: "#15152B",
+};
