@@ -34,7 +34,7 @@ export default function MobileMenu(props: MobileMenuProps) {
                     alt="menu-icon"
                     src={getSingleAssetSrc( open ? "CLOSE" : "MENU").default}
                     style={{
-                    width: "24px",
+                    width: open ? "32px" : "24px",
                     height: "24px",
                     }}
                 />
