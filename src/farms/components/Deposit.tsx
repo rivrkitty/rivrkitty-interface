@@ -9,7 +9,7 @@ import { FarmType, TokensMap } from "../model/reducer";
 import { useFetchApproval } from "../redux/fetchApproval";
 import { useSnackbar } from "notistack";
 import { useFetchDeposit } from "../redux/fetchDeposit";
-import { convertAmountToRawNumber } from "../../utils/bignumber";
+import { convertAmountToRawNumber, INPUT_FORMAT } from "../../utils/bignumber";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import { useFarms } from "../redux/fetchFarms";
 
@@ -71,7 +71,7 @@ export default function Deposit(props: { item: FarmType }) {
   const handleInputChange = (amount: BigNumber, input: string) => {
     setDepositSettings((s) => ({
       ...s,
-      input: amount.isEqualTo(input) ? input : amount.toFormat(),
+      input: amount.isEqualTo(input) ? input : amount.toFormat(INPUT_FORMAT),
       amount,
     }));
   };
@@ -125,7 +125,7 @@ export default function Deposit(props: { item: FarmType }) {
     const amount = tokenBalance(item.tokenAddress);
     setDepositSettings((s) => ({
       ...s,
-      input: amount.toFormat(),
+      input: amount.toFormat(INPUT_FORMAT),
       amount,
     }));
   };

@@ -19,7 +19,7 @@ export const isValidNetworkId = (networkId: number) =>
 export const getNetworkMulticall = (networkId: number) => {
   switch (networkId) {
     case 1285:
-      return "0x8ecf62Cb46Ba4913d6FbDd6E74da4A6A7c40582F";
+      return "0x5f9Af1Fdc4eb0B0b3E3263e19030c1A0Da4121Fc";
     case 1287:
       return "0x3C8c1948D959Ec186d35dDC26280D48100A81101";
     default:

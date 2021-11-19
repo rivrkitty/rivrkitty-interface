@@ -6,7 +6,7 @@ import AmountTextField from "../../common/components/AmountTextField";
 import BigNumber from "bignumber.js";
 import { useFetchBalances } from "../redux/fetchBalances";
 import { useFetchWithdraw } from "../redux/fetchWithdraw";
-import { convertAmountToRawNumber } from "../../utils/bignumber";
+import { convertAmountToRawNumber, INPUT_FORMAT } from "../../utils/bignumber";
 import { enqueueSnackbar } from "../../common/redux/snackbar";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import { useFarms } from "../redux/fetchFarms";
@@ -30,7 +30,7 @@ export default function Withdraw(props: { item: FarmType }) {
   const handleInputChange = (amount: BigNumber, input: string) =>
     setWithdrawSettings((s) => ({
       ...s,
-      input: amount.isEqualTo(input) ? input : amount.toFormat(),
+      input: amount.isEqualTo(input) ? input : amount.toFormat(INPUT_FORMAT),
       amount,
     }));
 
@@ -74,7 +74,7 @@ export default function Withdraw(props: { item: FarmType }) {
   const handleAmountClick = () => {
     setWithdrawSettings((s) => ({
       ...s,
-      input: tokenBalance.toFormat(),
+      input: tokenBalance.toFormat(INPUT_FORMAT),
       amount: tokenBalance,
     }));
   };

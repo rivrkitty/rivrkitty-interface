@@ -21,3 +21,9 @@ export function formatPrice(value: number | BigNumber, decimalPlaces = 8) {
     .toFormat();
   return `$${formatted}`;
 }
+
+export const INPUT_FORMAT = {
+  groupSeparator: "",
+  secondaryGroupSize: 0,
+  decimalSeparator: ".",
+};
