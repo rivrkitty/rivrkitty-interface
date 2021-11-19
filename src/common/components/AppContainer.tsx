@@ -7,6 +7,8 @@ import Background from "./Background/Background";
 import Notifier from "./Notifier";
 import Fetcher from "./Fetcher";
 import NetworkChecker from "./NetworkChecker";
+import { Hidden } from "@mui/material";
+import AuditButton from "./AuditButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -62,6 +64,9 @@ export default function AppContainer(props: Props) {
       </div>
       <Notifier />
       <Fetcher />
+      <Hidden lgDown>
+        <AuditButton />
+      </Hidden>
     </div>
   );
 }
