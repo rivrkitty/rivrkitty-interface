@@ -6,7 +6,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../../../utils/bignumber";
 import { getSingleAssetSrc } from "../../../utils/getSingleAssetSrc";
-import { useFetchPrices } from "../../redux/fetchPrices";
+import { useFetchTokenPrice } from "../../redux/fetchTokenPrice";
 import huckle from "../../../assets/token/Huckleberry.png";
 import solar from "../../../assets/token/SOLAR.png";
 import rubic from "../../../assets/token/RUBIC.png";
@@ -21,7 +21,7 @@ type Props = {
 export default function RkittyDialog(props: Props) {
   const { onClose, open } = props;
 
-  const { prices } = useFetchPrices();
+  const { prices } = useFetchTokenPrice();
   const { t } = useTranslation();
 
   const price = new BigNumber(prices["rivrkitty"] || 0);

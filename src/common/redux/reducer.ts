@@ -1,6 +1,6 @@
 import { builderHandler as connectHandler } from "./connectWallet";
 import { builderHandler as disconnectHandler } from "./disconnectWallet";
-import { builderHandler as fetchPricesHandler } from "./fetchPrices";
+import { builderHandler as fetchPricesHandler } from "./fetchTokenPrice";
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { CommonState } from "../model/reducer";
 

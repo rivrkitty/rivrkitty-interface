@@ -8,6 +8,8 @@ import { useFarms } from "../redux/fetchFarms";
 import BigNumber from "bignumber.js";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import { useFetchHarvest } from "../redux/fetchHarvest";
+import { useTVL } from "../redux/selectors";
+import { formatPrice } from "../../utils/bignumber";
 
 export default function Summary() {
   const { t } = useTranslation();
@@ -16,6 +18,7 @@ export default function Summary() {
   const { tokenBalance } = useFetchBalances();
   const { infoPendingReward } = useFetchPoolInfo();
   const { fetchHarvestAll, fetchHarvestPending } = useFetchHarvest();
+  const { infoTotalTVL } = useTVL();
 
   const farms = React.useMemo(() => _farms || [], [_farms]);
   const pawsTokenAddress =
@@ -47,6 +50,10 @@ export default function Summary() {
       <Typography variant="body1" sx={{ marginTop: 1 }}>
         {t("farmsDescription")}
       </Typography>
+      <Typography variant="body1" sx={{ marginTop: 2 }}>
+        {t("farmsTVL")}
+      </Typography>
+      <Typography variant="h6">{formatPrice(infoTotalTVL(), 0)}</Typography>
       <Typography variant="body2" sx={{ marginTop: 2 }}>
         {t("farmsHoldingTitle")}
       </Typography>

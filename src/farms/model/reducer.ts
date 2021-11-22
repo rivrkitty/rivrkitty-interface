@@ -43,6 +43,8 @@ export type PoolInfo = {
 
 export type TokensMap = { [token: string]: Token };
 
+export type PricesMap = { [token: string]: string };
+
 export type PoolInfoMap = {
   [tokenAddress: string]: {
     [poolId: number]: PoolInfo;
@@ -56,8 +58,10 @@ export type FarmsState = {
   requestState: RequestState;
   tokens: TokensMap;
   poolInfo: PoolInfoMap;
+  prices: PricesMap;
   fetchBalancesRequestState: RequestState;
   fetchBalancesDone: boolean;
+  fetchPricesPending: boolean;
   fetchApprovalPending: {
     [address: string]: boolean;
   };

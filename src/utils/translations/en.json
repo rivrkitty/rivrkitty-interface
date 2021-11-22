@@ -50,6 +50,7 @@
     "farmsHarvestSuccess": "Harvest success",
     "farmsHarvestError": "Harvest error: {{error}}",
     "farmsHarvesting": "Harvesting...",
+    "farmsTVL": "Total Value Locked",
     "menuTelegram": "Telegram",
     "menuTwitter": "Twitter",
     "menuGithub": "Github",
