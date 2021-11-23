@@ -6,11 +6,16 @@ import AmountTextField from "../../common/components/AmountTextField";
 import BigNumber from "bignumber.js";
 import { useFetchBalances } from "../redux/fetchBalances";
 import { useFetchWithdraw } from "../redux/fetchWithdraw";
-import { convertAmountToRawNumber, INPUT_FORMAT } from "../../utils/bignumber";
+import {
+  convertAmountToRawNumber,
+  formatPrice,
+  INPUT_FORMAT,
+} from "../../utils/bignumber";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import { useFarms } from "../redux/fetchFarms";
 import { FarmType } from "../model/reducer";
 import { useSnackbar } from "notistack";
+import { useFetchPrices } from "../redux/fetchPrices";
 
 export default function Withdraw(props: { item: FarmType }) {
   const { item } = props;
@@ -22,6 +27,7 @@ export default function Withdraw(props: { item: FarmType }) {
   const { fetchWithdraw, fetchWithdrawPending } = useFetchWithdraw();
   const { infoTokenBalance, fetchPoolInfo } = useFetchPoolInfo();
   const { enqueueSnackbar } = useSnackbar();
+  const { prices } = useFetchPrices();
 
   const [withdrawSettings, setWithdrawSettings] = React.useState({
     amount: new BigNumber(0),
@@ -86,7 +92,14 @@ export default function Withdraw(props: { item: FarmType }) {
         <Typography variant="caption">
           {t("farmsWithdrawBalance")}{" "}
           <Link sx={{ cursor: "pointer" }} onClick={handleAmountClick}>
-            {tokenBalance.decimalPlaces(8, BigNumber.ROUND_DOWN).toFormat()}
+            {tokenBalance.decimalPlaces(4, BigNumber.ROUND_DOWN).toFormat()} (
+            {formatPrice(
+              new BigNumber(prices[item.tokenAddress] || 0).multipliedBy(
+                tokenBalance
+              ),
+              2
+            )}
+            )
           </Link>
         </Typography>
       </Grid>

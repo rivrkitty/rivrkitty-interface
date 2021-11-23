@@ -9,9 +9,14 @@ import { FarmType, TokensMap } from "../model/reducer";
 import { useFetchApproval } from "../redux/fetchApproval";
 import { useSnackbar } from "notistack";
 import { useFetchDeposit } from "../redux/fetchDeposit";
-import { convertAmountToRawNumber, INPUT_FORMAT } from "../../utils/bignumber";
+import {
+  convertAmountToRawNumber,
+  formatPrice,
+  INPUT_FORMAT,
+} from "../../utils/bignumber";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import { useFarms } from "../redux/fetchFarms";
+import { useFetchPrices } from "../redux/fetchPrices";
 
 function useMonitorAllowance(
   tokens: TokensMap,
@@ -54,6 +59,7 @@ export default function Deposit(props: { item: FarmType }) {
   const { fetchDeposit, fetchDepositPending } = useFetchDeposit();
   const { fetchPoolInfo } = useFetchPoolInfo();
   const { enqueueSnackbar } = useSnackbar();
+  const { prices } = useFetchPrices();
 
   const [depositSettings, setDepositSettings] = React.useState({
     amount: new BigNumber(0),
@@ -130,15 +136,28 @@ export default function Deposit(props: { item: FarmType }) {
     }));
   };
 
+  const bal = tokenBalance(item.tokenAddress);
+
   return (
     <Grid container spacing={1}>
       <Grid item xs={12}>
         <Typography variant="caption">
           {t("farmsDepositBalance")}
           <Link sx={{ cursor: "pointer" }} onClick={handleAmountClick}>
-            {tokenBalance(item.tokenAddress)
-              .decimalPlaces(8, BigNumber.ROUND_DOWN)
-              .toFormat()}
+            {bal.decimalPlaces(4, BigNumber.ROUND_DOWN).toFormat()}{" "}
+            {!bal.isZero() && (
+              <>
+                {" ("}
+                {formatPrice(
+                  new BigNumber(prices[item.tokenAddress] || 0).multipliedBy(
+                    tokenBalance(item.tokenAddress)
+                  ),
+                  2,
+                  true
+                )}
+                )
+              </>
+            )}
           </Link>
         </Typography>
       </Grid>

@@ -15,12 +15,16 @@ export function convertAmountToRawNumber(
     .toString(10);
 }
 
-export function formatPrice(value: number | BigNumber, decimalPlaces = 8) {
+export function formatPrice(
+  value: number | BigNumber,
+  decimalPlaces = 8,
+  showZero = false
+) {
   const formatted = new BigNumber(value).decimalPlaces(
     decimalPlaces,
     BigNumber.ROUND_DOWN
   );
-  if (formatted.isZero()) {
+  if (!showZero && formatted.isZero()) {
     return "$-";
   }
   return `$${formatted.toFormat()}`;

@@ -4,7 +4,7 @@ import Web3 from "web3";
 import { createAsync } from "../../utils/reduxCreators";
 import { Store } from "../../utils/rootReducer";
 import { ReducerBuilder } from "typescript-fsa-reducers";
-import { FarmsState, FarmType, PoolInfo, PoolInfoMap } from "../model/reducer";
+import { FarmsState, FarmType, PoolInfoMap } from "../model/reducer";
 import BigNumber from "bignumber.js";
 import { byDecimals } from "../../utils/bignumber";
 import {

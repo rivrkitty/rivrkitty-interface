@@ -5,9 +5,6 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { Store } from "../../utils/rootReducer";
 import { API } from "../../utils/api";
 import { FarmsState, PricesMap } from "../model/reducer";
-import { getPoolInfo } from "./common";
-import { byDecimals } from "../../utils/bignumber";
-import BigNumber from "bignumber.js";
 
 export const fetchPrices = createAsync<
   { networkId: number | null },
@@ -23,17 +20,14 @@ export const fetchPrices = createAsync<
 
 export function useFetchPrices() {
   const dispatch = useDispatch();
-  const { poolInfo, prices, fetchPricesPending, networkId, tokens } =
-    useSelector(
-      (state: Store) => ({
-        prices: state.farms.prices,
-        fetchPricesPending: state.farms.fetchPricesPending,
-        networkId: state.common.networkId,
-        poolInfo: state.farms.poolInfo,
-        tokens: state.farms.tokens,
-      }),
-      shallowEqual
-    );
+  const { prices, fetchPricesPending, networkId } = useSelector(
+    (state: Store) => ({
+      prices: state.farms.prices,
+      fetchPricesPending: state.farms.fetchPricesPending,
+      networkId: state.common.networkId,
+    }),
+    shallowEqual
+  );
   const boundAction = useCallback(
     () => dispatch(fetchPrices({ networkId })),
     [dispatch, networkId]
