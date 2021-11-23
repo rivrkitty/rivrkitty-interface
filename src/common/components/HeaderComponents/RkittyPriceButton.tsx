@@ -4,7 +4,7 @@ import Hidden from "@mui/material/Hidden";
 import Avatar from "@mui/material/Avatar";
 import PriceTickerButton from "./PriceTickerButton";
 import { getSingleAssetSrc } from "../../../utils/getSingleAssetSrc";
-import { useFetchPrices } from "../../redux/fetchPrices";
+import { useFetchTokenPrice } from "../../redux/fetchTokenPrice";
 import { formatPrice } from "../../../utils/bignumber";
 import RkittyDialog from "./RkittyDialog";
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 export default function RkittyPriceButton() {
   const classes = useStyles();
 
-  const { prices } = useFetchPrices();
+  const { prices } = useFetchTokenPrice();
   const [kittyDialogOpen, setKittyDialogOpen] = React.useState(false);
 
   const price = prices["rivrkitty"];

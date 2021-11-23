@@ -20,6 +20,7 @@ import {
 } from "../../web3/getNetworkData";
 import { Multicall } from "ethereum-multicall";
 import getBlockTime from "../../utils/getBlockTime";
+import { getPoolInfo } from "./common";
 
 const WEEK = 60 * 60 * 24 * 7;
 
@@ -281,22 +282,6 @@ export const fetchPoolInfo = createAsync<
   }
 );
 
-const getPoolInfo = (
-  poolInfo: PoolInfoMap,
-  chefAddress: string,
-  pid: number
-): PoolInfo | null => {
-  const chefPoolInfo = poolInfo[chefAddress] as any;
-  if (!chefPoolInfo) {
-    return null;
-  }
-  const info = chefPoolInfo[pid] as PoolInfo | undefined;
-  if (!info) {
-    return null;
-  }
-  return info;
-};
-
 export function useFetchPoolInfo() {
   const dispatch = useDispatch();
 
@@ -388,22 +373,12 @@ export function useFetchPoolInfo() {
     );
   };
 
-  const infoTotalLp = (
-    chefAddress: string,
-    tokenAddress: string,
-    pid: number
-  ) => {
-    const info = getPoolInfo(poolInfo, chefAddress, pid);
-    return byDecimals(info?.totalLp || 0, tokens[tokenAddress].decimals);
-  };
-
   return {
     poolInfo,
     infoTokenBalance,
     infoPendingReward,
     infoAddPendingReward,
     infoPoolRate,
-    infoTotalLp,
     hasTokenBalance,
     fetchPoolInfo: boundAction,
     fetchPoolInfoPending,

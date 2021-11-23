@@ -9,6 +9,7 @@ import Fetcher from "./Fetcher";
 import NetworkChecker from "./NetworkChecker";
 import { Hidden } from "@mui/material";
 import AuditButton from "./AuditButton";
+import { Web3ModalContainer } from "../contexts/Web3ModalProvider";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -46,27 +47,29 @@ export default function AppContainer(props: Props) {
   const { children } = props;
   const classes = useStyles();
   return (
-    <div className={classes.container}>
-      <Background
-        className={clsx(classes.background, classes.overBackground)}
-      />
-      <Header className={clsx(classes.header, classes.overBackground)} />
-      <Divider
-        sx={{
-          zIndex: 1,
-          height: "2px",
-          background:
-            "linear-gradient(90deg, rgba(234,132,120,1) 0%, rgba(95,176,180,1) 100%)",
-        }}
-      />
-      <div className={clsx(classes.content, classes.overBackground)}>
-        <NetworkChecker>{children}</NetworkChecker>
+    <Web3ModalContainer>
+      <div className={classes.container}>
+        <Background
+          className={clsx(classes.background, classes.overBackground)}
+        />
+        <Header className={clsx(classes.header, classes.overBackground)} />
+        <Divider
+          sx={{
+            zIndex: 1,
+            height: "2px",
+            background:
+              "linear-gradient(90deg, rgba(234,132,120,1) 0%, rgba(95,176,180,1) 100%)",
+          }}
+        />
+        <div className={clsx(classes.content, classes.overBackground)}>
+          <NetworkChecker>{children}</NetworkChecker>
+        </div>
+        <Notifier />
+        <Fetcher />
+        <Hidden lgDown>
+          <AuditButton />
+        </Hidden>
       </div>
-      <Notifier />
-      <Fetcher />
-      <Hidden lgDown>
-        <AuditButton />
-      </Hidden>
-    </div>
+    </Web3ModalContainer>
   );
 }

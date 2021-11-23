@@ -7,10 +7,10 @@ import BigNumber from "bignumber.js";
 import { useFetchBalances } from "../redux/fetchBalances";
 import { useFetchWithdraw } from "../redux/fetchWithdraw";
 import { convertAmountToRawNumber, INPUT_FORMAT } from "../../utils/bignumber";
-import { enqueueSnackbar } from "../../common/redux/snackbar";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import { useFarms } from "../redux/fetchFarms";
 import { FarmType } from "../model/reducer";
+import { useSnackbar } from "notistack";
 
 export default function Withdraw(props: { item: FarmType }) {
   const { item } = props;
@@ -21,6 +21,7 @@ export default function Withdraw(props: { item: FarmType }) {
   const { tokens, fetchBalances } = useFetchBalances();
   const { fetchWithdraw, fetchWithdrawPending } = useFetchWithdraw();
   const { infoTokenBalance, fetchPoolInfo } = useFetchPoolInfo();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [withdrawSettings, setWithdrawSettings] = React.useState({
     amount: new BigNumber(0),

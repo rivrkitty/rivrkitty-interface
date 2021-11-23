@@ -10,6 +10,8 @@ import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import BigNumber from "bignumber.js";
 import { FarmType } from "../model/reducer";
 import Hidden from "@mui/material/Hidden";
+import { useTVL } from "../redux/selectors";
+import { formatPrice } from "../../utils/bignumber";
 
 const formatPoolRate = (poolRate: BigNumber | null) => {
   if (!poolRate) {
@@ -23,7 +25,8 @@ export default function FarmHeader(props: { item: FarmType }) {
   const { item } = props;
   const { t } = useTranslation();
 
-  const { infoPoolRate, infoTotalLp } = useFetchPoolInfo();
+  const { infoPoolRate } = useFetchPoolInfo();
+  const { infoFarmTVL } = useTVL();
 
   const hasTwoRewards = item.rewardTokens.length === 2;
 
@@ -60,10 +63,10 @@ export default function FarmHeader(props: { item: FarmType }) {
         </Typography>
         <Typography variant="caption" sx={{ marginTop: "-6px" }}>
           {t("farmsTvl")}{" "}
-          {infoTotalLp(item.chefAddress, item.tokenAddress, item.poolId)
-            .decimalPlaces(8, BigNumber.ROUND_DOWN)
-            .toFormat()}
-          {" LP"}
+          {formatPrice(
+            infoFarmTVL(item.chefAddress, item.tokenAddress, item.poolId),
+            0
+          )}
         </Typography>
       </Box>
       <IconButton

@@ -6,28 +6,33 @@ import { Store } from "../../utils/rootReducer";
 import { CommonState } from "../model/reducer";
 import { API } from "../../utils/api";
 
-export const fetchTokenPrice = createAsync<{ tokenId: string }, number, Error>(
-  "FETCH_TOKEN_PRICE",
-  async ({ tokenId }, _1, _2) => {
-    const result = await API.get<{ [tokenId: string]: { usd: number } }>(
-      `/prices/${tokenId}`
-    );
-    return result.data[tokenId].usd;
+export const fetchTokenPrice = createAsync<
+  { tokenId: string; networkId: number | null },
+  number,
+  Error
+>("FETCH_TOKEN_PRICE", async ({ tokenId, networkId }, _1, _2) => {
+  if (!networkId) {
+    return 0;
   }
-);
+  const result = await API.get<{ [tokenId: string]: { usd: number } }>(
+    `/prices/${networkId}/${tokenId}`
+  );
+  return result.data[tokenId].usd;
+});
 
-export function useFetchPrices() {
+export function useFetchTokenPrice() {
   const dispatch = useDispatch();
-  const { prices, fetchPricesPending } = useSelector(
+  const { prices, fetchPricesPending, networkId } = useSelector(
     (state: Store) => ({
       prices: state.common.prices,
       fetchPricesPending: state.common.fetchPricesPending,
+      networkId: state.common.networkId,
     }),
     shallowEqual
   );
   const boundAction = useCallback(
-    (tokenId: string) => dispatch(fetchTokenPrice({ tokenId })),
-    [dispatch]
+    (tokenId: string) => dispatch(fetchTokenPrice({ tokenId, networkId })),
+    [dispatch, networkId]
   );
 
   return {

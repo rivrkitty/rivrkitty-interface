@@ -1,10 +1,10 @@
 import React from "react";
-import { useFetchPrices } from "../redux/fetchPrices";
+import { useFetchTokenPrice } from "../redux/fetchTokenPrice";
 
 const FETCH_PRICE_INTERVAL_MS = 15 * 1000;
 
 export default function Fetcher() {
-  const { fetchPricesPending, fetchTokenPrice } = useFetchPrices();
+  const { fetchPricesPending, fetchTokenPrice } = useFetchTokenPrice();
 
   React.useEffect(() => {
     const fetch = () => {
