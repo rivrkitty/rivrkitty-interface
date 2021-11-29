@@ -3,6 +3,7 @@ import { useFetchBalances } from "../redux/fetchBalances";
 import { useFarms } from "../redux/fetchFarms";
 import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import { useFetchPrices } from "../redux/fetchPrices";
+import { useFetchTvl } from "../redux/fetchTvl";
 
 const FETCH_FARMS_INTERVAL_MS = 60 * 1000;
 const FETCH_POOL_INFO_INTERVAL_MS = 15 * 1000;
@@ -14,11 +15,15 @@ export default function Fetcher() {
     useFetchBalances();
   const { fetchPoolInfo, fetchPoolInfoPending } = useFetchPoolInfo();
   const { fetchPrices, fetchPricesPending } = useFetchPrices();
+  const { fetchTvl, fetchTvlPending } = useFetchTvl();
 
   React.useEffect(() => {
     const fetch = () => {
       if (!requestState.ongoing) {
         fetchFarms();
+      }
+      if (!fetchTvlPending) {
+        fetchTvl();
       }
     };
     fetch();
@@ -29,7 +34,7 @@ export default function Fetcher() {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchFarms]);
+  }, [fetchFarms, fetchTvl]);
 
   const farmsExist = farms && farms.length > 0;
   React.useEffect(() => {

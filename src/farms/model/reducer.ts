@@ -53,12 +53,15 @@ export type PoolInfoMap = {
   };
 };
 
+export type TvlInfo = { [tokenAddress: string]: string; total: string };
+
 export type FarmsState = {
   farms: { [networkId: string]: FarmType[] };
   requestState: RequestState;
   tokens: TokensMap;
   poolInfo: PoolInfoMap;
   prices: PricesMap;
+  tvl: TvlInfo;
   fetchBalancesRequestState: RequestState;
   fetchBalancesDone: boolean;
   fetchPricesPending: boolean;
@@ -76,4 +79,5 @@ export type FarmsState = {
   fetchHarvestPending: {
     [address: string]: boolean;
   };
+  fetchTvlPending: boolean;
 };

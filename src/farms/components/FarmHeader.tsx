@@ -10,8 +10,8 @@ import { useFetchPoolInfo } from "../redux/fetchPoolInfo";
 import BigNumber from "bignumber.js";
 import { FarmType } from "../model/reducer";
 import Hidden from "@mui/material/Hidden";
-import { useTVL } from "../redux/selectors";
 import { formatPrice } from "../../utils/bignumber";
+import { useFetchTvl } from "../redux/fetchTvl";
 
 const formatPoolRate = (poolRate: BigNumber | null) => {
   if (!poolRate) {
@@ -26,9 +26,11 @@ export default function FarmHeader(props: { item: FarmType }) {
   const { t } = useTranslation();
 
   const { infoPoolRate } = useFetchPoolInfo();
-  const { infoFarmTVL } = useTVL();
+  const { tvl } = useFetchTvl();
 
   const hasTwoRewards = item.rewardTokens.length === 2;
+
+  const itemTvl = tvl && tvl[item.tokenAddress];
 
   return (
     <Box
@@ -62,11 +64,7 @@ export default function FarmHeader(props: { item: FarmType }) {
           {item.name}
         </Typography>
         <Typography variant="caption" sx={{ marginTop: "-6px" }}>
-          {t("farmsTvl")}{" "}
-          {formatPrice(
-            infoFarmTVL(item.chefAddress, item.tokenAddress, item.poolId),
-            0
-          )}
+          {t("farmsTvl")} {itemTvl ? formatPrice(itemTvl, 0) : "-"}
         </Typography>
       </Box>
       <IconButton
@@ -93,7 +91,7 @@ export default function FarmHeader(props: { item: FarmType }) {
           }}
         >
           {item.rewardTokens.map((tok, index) => (
-            <Typography variant={hasTwoRewards ? "body1" : "h6"}>
+            <Typography key={tok} variant={hasTwoRewards ? "body1" : "h6"}>
               {formatPoolRate(
                 infoPoolRate(
                   index === 0 ? item.chefAddress : item.addRewardChefAddress!!,

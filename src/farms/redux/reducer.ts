@@ -7,6 +7,7 @@ import { builderHandler as fetchWithdrawHandler } from "./fetchWithdraw";
 import { builderHandler as fetchUserInfoHandler } from "./fetchPoolInfo";
 import { builderHandler as fetchHarvestHandler } from "./fetchHarvest";
 import { builderHandler as fetchPricestHandler } from "./fetchPrices";
+import { builderHandler as fetchTvlHandler } from "./fetchTvl";
 import { FarmsState } from "../model/reducer";
 import { createRequestState } from "../../common";
 import { networkChanged } from "../../common/redux/connectWallet";
@@ -17,6 +18,7 @@ const initialState: FarmsState = {
   tokens: {},
   poolInfo: {},
   prices: {},
+  tvl: { total: "0" },
   fetchBalancesRequestState: createRequestState(),
   fetchBalancesDone: false,
   fetchPricesPending: false,
@@ -26,6 +28,7 @@ const initialState: FarmsState = {
   fetchWithdrawPending: {},
   fetchPoolInfoPending: false,
   fetchHarvestPending: {},
+  fetchTvlPending: false,
 };
 
 export default reducerWithInitialState(initialState)
@@ -37,6 +40,7 @@ export default reducerWithInitialState(initialState)
   .withHandling(fetchUserInfoHandler)
   .withHandling(fetchHarvestHandler)
   .withHandling(fetchPricestHandler)
+  .withHandling(fetchTvlHandler)
   .case(networkChanged, () => ({
     ...initialState,
   }));

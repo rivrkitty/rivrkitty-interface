@@ -16,7 +16,7 @@ export function convertAmountToRawNumber(
 }
 
 export function formatPrice(
-  value: number | BigNumber,
+  value: number | BigNumber | string,
   decimalPlaces = 8,
   showZero = false
 ) {
