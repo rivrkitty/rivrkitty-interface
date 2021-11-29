@@ -31,8 +31,6 @@ export function useFetchTvl() {
     [dispatch, networkId]
   );
 
-  console.log("DUPA", tvl, totalTvl);
-
   return {
     totalTvl: totalTvl === "0" ? null : totalTvl,
     tvl,
