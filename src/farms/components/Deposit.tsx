@@ -96,12 +96,13 @@ export default function Deposit(props: { item: FarmType }) {
         })
       );
 
+  const bal = tokenBalance(item.tokenAddress);
+
   const handleDepositAmount = () => {
+    const amount =
+      depositSettings.amount.comparedTo(bal) > 0 ? bal : depositSettings.amount;
     fetchDeposit({
-      amount: convertAmountToRawNumber(
-        depositSettings.amount,
-        item.tokenDecimals
-      ),
+      amount: convertAmountToRawNumber(amount, item.tokenDecimals),
       contractAddress: item.chefAddress,
       pid: item.poolId,
       tokenAddress: item.tokenAddress,
@@ -128,15 +129,12 @@ export default function Deposit(props: { item: FarmType }) {
   };
 
   const handleAmountClick = () => {
-    const amount = tokenBalance(item.tokenAddress);
     setDepositSettings((s) => ({
       ...s,
-      input: amount.toFormat(INPUT_FORMAT),
-      amount,
+      input: bal.toFormat(INPUT_FORMAT),
+      amount: bal,
     }));
   };
-
-  const bal = tokenBalance(item.tokenAddress);
 
   return (
     <Grid container spacing={1}>
@@ -144,7 +142,9 @@ export default function Deposit(props: { item: FarmType }) {
         <Typography variant="caption">
           {t("farmsDepositBalance")}
           <Link sx={{ cursor: "pointer" }} onClick={handleAmountClick}>
-            {bal.decimalPlaces(4, BigNumber.ROUND_DOWN).toFormat()}{" "}
+            {bal
+              .decimalPlaces(item.tokenDecimals, BigNumber.ROUND_DOWN)
+              .toFormat()}{" "}
             {!bal.isZero() && (
               <>
                 {" ("}

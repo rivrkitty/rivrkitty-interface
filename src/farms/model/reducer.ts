@@ -27,18 +27,18 @@ export type Token = {
   symbol: string;
   decimals: number;
   address: string;
-  balance: number;
+  balance: string;
   allowance: {
-    [address: string]: number;
+    [address: string]: string;
   };
 };
 
 export type PoolInfo = {
-  allocPoints: BigNumber;
-  userBalance: BigNumber;
-  pendingReward: BigNumber;
-  addPendingReward: BigNumber;
-  totalLp: BigNumber;
+  allocPoints: string;
+  userBalance: string;
+  pendingReward: string;
+  addPendingReward: string;
+  totalLp: string;
 };
 
 export type TokensMap = { [token: string]: Token };
@@ -48,8 +48,8 @@ export type PricesMap = { [token: string]: string };
 export type PoolInfoMap = {
   [tokenAddress: string]: {
     [poolId: number]: PoolInfo;
-    totalAllocPoints: BigNumber;
-    rewardPerWeek: BigNumber;
+    totalAllocPoints: string;
+    rewardPerWeek: string;
   };
 };
 

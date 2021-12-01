@@ -41,12 +41,19 @@ export default function Withdraw(props: { item: FarmType }) {
       amount,
     }));
 
+  const tokenBalance = infoTokenBalance(
+    item.chefAddress,
+    item.tokenAddress,
+    item.poolId
+  );
+
   const handleWithdrawAmount = () => {
+    const amount =
+      withdrawSettings.amount.comparedTo(tokenBalance) > 0
+        ? tokenBalance
+        : withdrawSettings.amount;
     fetchWithdraw({
-      amount: convertAmountToRawNumber(
-        withdrawSettings.amount,
-        item.tokenDecimals
-      ),
+      amount: convertAmountToRawNumber(amount, item.tokenDecimals),
       contractAddress: item.chefAddress,
       pid: item.poolId,
       tokenAddress: item.tokenAddress,
@@ -72,12 +79,6 @@ export default function Withdraw(props: { item: FarmType }) {
       );
   };
 
-  const tokenBalance = infoTokenBalance(
-    item.chefAddress,
-    item.tokenAddress,
-    item.poolId
-  );
-
   const handleAmountClick = () => {
     setWithdrawSettings((s) => ({
       ...s,
@@ -92,7 +93,10 @@ export default function Withdraw(props: { item: FarmType }) {
         <Typography variant="caption">
           {t("farmsWithdrawBalance")}{" "}
           <Link sx={{ cursor: "pointer" }} onClick={handleAmountClick}>
-            {tokenBalance.decimalPlaces(4, BigNumber.ROUND_DOWN).toFormat()} (
+            {tokenBalance
+              .decimalPlaces(item.tokenDecimals, BigNumber.ROUND_DOWN)
+              .toFormat()}{" "}
+            (
             {formatPrice(
               new BigNumber(prices[item.tokenAddress] || 0).multipliedBy(
                 tokenBalance

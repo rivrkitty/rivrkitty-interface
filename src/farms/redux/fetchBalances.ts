@@ -77,7 +77,7 @@ export const fetchBalances = createAsync<
       if (c.reference === "balanceOf") {
         newTokens[tokenAddress] = {
           ...tokens[tokenAddress],
-          balance: new BigNumber(c.returnValues[0].hex).toNumber(),
+          balance: new BigNumber(c.returnValues[0].hex).toString(),
         };
       } else if (c.reference === "allowance") {
         newTokens[tokenAddress] = {
@@ -86,7 +86,7 @@ export const fetchBalances = createAsync<
             ...newTokens[tokenAddress].allowance,
             [c.methodParameters[1]]: new BigNumber(
               c.returnValues[0].hex
-            ).toNumber(),
+            ).toString(),
           },
         };
       }

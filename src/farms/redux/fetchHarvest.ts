@@ -1,3 +1,4 @@
+import { TokensMap } from "./../model/reducer";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReducerBuilder } from "typescript-fsa-reducers";
@@ -7,6 +8,7 @@ import { createAsync } from "../../utils/reduxCreators";
 import { Store } from "../../utils/rootReducer";
 import { deposit } from "../../web3/deposit";
 import { FarmsState, FarmType } from "../model/reducer";
+import BigNumber from "bignumber.js";
 
 type BaseFetchHarvestProps = {
   contractAddress: string;
@@ -42,25 +44,29 @@ type BaseFetchHarvestAllProps = {
 interface FetchHarvestAllProps extends BaseFetchHarvestAllProps {
   address: string | null;
   web3: Web3 | null;
+  tokens: TokensMap;
 }
 
 export const fetchAllHarvest = createAsync<FetchHarvestAllProps, void, Error>(
   "FETCH_ALL_HARVEST",
-  async ({ address, web3, farms }, dispatch, _1) => {
+  async ({ address, web3, farms, tokens }, dispatch, _1) => {
     if (!web3 || !address || !farms) {
       return;
     }
     for (let i = 0; i < farms.length; i++) {
       const farm = farms[i];
-      await dispatch(
-        fetchHarvest({
-          address,
-          web3,
-          contractAddress: farm.chefAddress,
-          pid: farm.poolId,
-          tokenAddress: farm.tokenAddress,
-        })
-      );
+      const bal = tokens[farm.tokenAddress]?.balance || "0";
+      if (new BigNumber(bal).isZero() === false) {
+        await dispatch(
+          fetchHarvest({
+            address,
+            web3,
+            contractAddress: farm.chefAddress,
+            pid: farm.poolId,
+            tokenAddress: farm.tokenAddress,
+          })
+        );
+      }
     }
   }
 );
@@ -68,13 +74,14 @@ export const fetchAllHarvest = createAsync<FetchHarvestAllProps, void, Error>(
 export function useFetchHarvest() {
   const dispatch = useDispatch();
 
-  const { fetchHarvestPending } = useSelector((state: Store) => ({
-    fetchHarvestPending: state.farms.fetchHarvestPending,
-  }));
-  const { web3, address } = useSelector((state: Store) => ({
-    web3: state.common.web3,
-    address: state.common.address,
-  }));
+  const { fetchHarvestPending, tokens, web3, address } = useSelector(
+    (state: Store) => ({
+      fetchHarvestPending: state.farms.fetchHarvestPending,
+      tokens: state.farms.tokens,
+      web3: state.common.web3,
+      address: state.common.address,
+    })
+  );
 
   const boundAction = useCallback(
     (data: BaseFetchHarvestProps) =>
@@ -83,8 +90,8 @@ export function useFetchHarvest() {
   );
   const boundAction2 = useCallback(
     (data: BaseFetchHarvestAllProps) =>
-      dispatch(fetchAllHarvest({ ...data, web3, address })),
-    [dispatch, web3, address]
+      dispatch(fetchAllHarvest({ ...data, web3, address, tokens })),
+    [dispatch, web3, address, tokens]
   );
 
   return {

@@ -18,7 +18,7 @@ interface FetchApprovalProps extends BaseFetchApprovalProps {
   web3: Web3 | null;
 }
 
-export const fetchApproval = createAsync<FetchApprovalProps, number, Error>(
+export const fetchApproval = createAsync<FetchApprovalProps, string, Error>(
   "FETCH_APPROVAL",
   async ({ address, web3, tokenAddress, contractAddress }, dispatch, _1) => {
     if (!web3 || !address) {

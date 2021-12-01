@@ -11,10 +11,10 @@ export async function approval(props: {
   tokenAddress: string;
   contractAddress: string;
   dispatch: Dispatch;
-}): Promise<number> {
+}): Promise<string> {
   const { web3, address, tokenAddress, contractAddress, dispatch } = props;
 
-  return new Promise<number>((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     const contract = new web3.eth.Contract(erc20ABI as AbiItem[], tokenAddress);
 
     contract.methods
@@ -33,7 +33,7 @@ export async function approval(props: {
         );
       })
       .on("receipt", function () {
-        resolve(new BigNumber(8000000000).toNumber());
+        resolve(new BigNumber(8000000000).toString());
       })
       .on("error", function (error: Error) {
         reject(error);

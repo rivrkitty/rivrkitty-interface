@@ -66,16 +66,16 @@ export const fetchPoolInfo = createAsync<
     const contractCallContext: ContractCallContext<{ farm: FarmType }>[] = [];
 
     const basePoolInfoValues = {
-      allocPoints: new BigNumber(0),
-      totalLp: new BigNumber(0),
-      userBalance: new BigNumber(0),
-      pendingReward: new BigNumber(0),
-      addPendingReward: new BigNumber(0),
+      allocPoints: "0",
+      totalLp: "0",
+      userBalance: "0",
+      pendingReward: "0",
+      addPendingReward: "0",
     };
 
     const baseChefPoolInfoValues = {
-      totalAllocPoints: new BigNumber(0),
-      rewardPerWeek: new BigNumber(0),
+      totalAllocPoints: "0",
+      rewardPerWeek: "0",
     };
 
     const chefCalls: CallContext[] = [
@@ -196,7 +196,7 @@ export const fetchPoolInfo = createAsync<
             [farm.poolId]: {
               ...(poolInfo[farm.chefAddress][farm.poolId] ||
                 basePoolInfoValues),
-              addPendingReward: new BigNumber(c.returnValues[0].hex),
+              addPendingReward: new BigNumber(c.returnValues[0].hex).toString(),
             },
           };
         });
@@ -212,7 +212,7 @@ export const fetchPoolInfo = createAsync<
               ...poolInfo[chefAddress],
               [poolId]: {
                 ...(poolInfo[chefAddress][poolId] || basePoolInfoValues),
-                userBalance: new BigNumber(c.returnValues[0].hex),
+                userBalance: new BigNumber(c.returnValues[0].hex).toString(),
               },
             };
           } else if (c.reference.startsWith("poolInfo_")) {
@@ -221,8 +221,8 @@ export const fetchPoolInfo = createAsync<
               ...poolInfo[chefAddress],
               [poolId]: {
                 ...(poolInfo[chefAddress][poolId] || basePoolInfoValues),
-                allocPoints: new BigNumber(c.returnValues[1].hex),
-                totalLp: new BigNumber(c.returnValues[5].hex),
+                allocPoints: new BigNumber(c.returnValues[1].hex).toString(),
+                totalLp: new BigNumber(c.returnValues[5].hex).toString(),
               },
             };
           } else if (c.reference.startsWith("pendingReward_")) {
@@ -231,13 +231,13 @@ export const fetchPoolInfo = createAsync<
               ...poolInfo[chefAddress],
               [poolId]: {
                 ...(poolInfo[chefAddress][poolId] || basePoolInfoValues),
-                pendingReward: new BigNumber(c.returnValues[0].hex),
+                pendingReward: new BigNumber(c.returnValues[0].hex).toString(),
               },
             };
           } else if (c.reference === "totalAllocPoint") {
             poolInfo[chefAddress] = {
               ...poolInfo[chefAddress],
-              totalAllocPoints: new BigNumber(c.returnValues[0].hex),
+              totalAllocPoints: new BigNumber(c.returnValues[0].hex).toString(),
             };
           } else if (c.reference === "rewardsPerBlock") {
             const perBlockType = farm?.addRewardChefPerBlockType || "block";
@@ -249,7 +249,7 @@ export const fetchPoolInfo = createAsync<
             }
             poolInfo[chefAddress] = {
               ...poolInfo[chefAddress],
-              rewardPerWeek,
+              rewardPerWeek: rewardPerWeek.toString(),
             };
           } else if (
             ["addPoolInfo", "addTotalAllocPoint"].includes(c.reference)
@@ -263,13 +263,17 @@ export const fetchPoolInfo = createAsync<
                   [addChefPid]: {
                     ...(poolInfo[addChefAddress][addChefPid] ||
                       basePoolInfoValues),
-                    allocPoints: new BigNumber(c.returnValues[1].hex),
+                    allocPoints: new BigNumber(
+                      c.returnValues[1].hex
+                    ).toString(),
                   },
                 };
               } else if (c.reference === "addTotalAllocPoint") {
                 poolInfo[addChefAddress] = {
                   ...poolInfo[addChefAddress],
-                  totalAllocPoints: new BigNumber(c.returnValues[0].hex),
+                  totalAllocPoints: new BigNumber(
+                    c.returnValues[0].hex
+                  ).toString(),
                 };
               }
             }
@@ -321,9 +325,9 @@ export function useFetchPoolInfo() {
       return null;
     }
     return (
-      !info.userBalance.isZero() ||
-      !info.pendingReward.isZero() ||
-      !info.addPendingReward.isZero()
+      !new BigNumber(info.userBalance).isZero() ||
+      !new BigNumber(info.pendingReward).isZero() ||
+      !new BigNumber(info.addPendingReward).isZero()
     );
   };
 
@@ -368,7 +372,7 @@ export function useFetchPoolInfo() {
     const poolAllocPoints = info["allocPoints"];
 
     return byDecimals(
-      rewardPerWeek.times(poolAllocPoints).div(totalAllocPoints),
+      new BigNumber(rewardPerWeek).times(poolAllocPoints).div(totalAllocPoints),
       tokens[tokenAddress]?.decimals || 18
     );
   };
