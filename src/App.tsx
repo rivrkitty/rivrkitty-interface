@@ -15,7 +15,7 @@ import "./App.css";
 import AppContainer from "./common/components/AppContainer";
 import Farm from "./farms/Farms";
 import { SnackbarProvider } from "notistack";
-
+import Kittyverse from "./kittyverse/Kittyverse";
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
@@ -38,6 +38,7 @@ function App() {
             <AppContainer>
               <Routes>
                 <Route path="/" element={<Farm />} />
+                <Route path="/kittyverse/*" element={<Kittyverse />} />
               </Routes>
             </AppContainer>
           </ThemeProvider>
