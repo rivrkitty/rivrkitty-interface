@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import MyClaimsLanding from "./Pages/MyClaimsLanding";
+import MyClaimsSuccess from "./Pages/MyClaimsSuccess";
 import { useState } from "react";
 type Props = {
   completed: number;
@@ -21,13 +22,16 @@ export default function MyClaims(props: Props) {
       display="flex"
       justifyContent={"center"}
     >
-      {!isApproveClicked && (
+      {
+      !isApproveClicked 
+      ? (
         <MyClaimsLanding
           completed={completed}
           total={total}
           handleApproveClick={handleClick}
         />
-      )}
+      )
+      : (<MyClaimsSuccess/>)}
     </Box>
   );
 }
