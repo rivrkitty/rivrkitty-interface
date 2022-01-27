@@ -39,6 +39,7 @@ const useStyles = makeStyles({
         color: "#60C0C2",
       },
     },
+    cursor: "pointer"
   },
 });
 
@@ -53,6 +54,9 @@ export default function Pawtals(props: { text: string }) {
       justifyContent="center"
       width="100%"
       minHeight={200}
+      bgcolor="#141B27"
+      padding="20px"
+      marginBottom="12px"
       className={classes.outerWrapper}
     >
       <Box

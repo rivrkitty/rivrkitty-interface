@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import SectionHeader from "../common/components/SectionHeader";
 import PawtalStatus from "../common/components/PawtalStatus";
+import Pawtals from "../common/components/Pawtals";
 import UnOpenPaw from "../assets/unopen-paw-small.svg";
 import KittyVerseRoundedButton from "../common/components/KittyVerseRoundedButton/KittyVerseRoundedButton";
 
@@ -20,7 +21,7 @@ const useStyles = makeStyles(() => ({
 
 export default function MyPawtals() {
   const classes = useStyles();
-
+  const hasPawtals = false; // make true to render unopened pawtal cards
   return (
     <Box
       display="flex"
@@ -48,39 +49,51 @@ export default function MyPawtals() {
         </Box>
 
         <Box
-          minHeight={580}
           bgcolor="#000"
           display="flex"
-          flexDirection="column"
           alignItems={"center"}
-          justifyContent={"center"}
+          paddingX="20px"
+          width="100%"
+          style={{
+            ... hasPawtals ? { flexDirection: "column" } : { minHeight: "580px"}
+          }}
         >
-          <Typography
-            variant="h5"
-            fontWeight="700"
-            sx={{ pl: 3, pt: 1, color: "#fff" }}
-            letterSpacing={"4px"}
-          >
-            You don’t have any Pawtals
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="row"
-            marginTop="24px"
-            justifyContent={"center"}
-          >
-            <img
-              src={UnOpenPaw}
-              alt="unopened pawtels"
-              className={classes.statusLogoimg}
-            />
-            <KittyVerseRoundedButton
-              name="Claim a Pawtal"
-              type="green"
-              btnclass={classes.claimPawtal}
-              onclick={() => {}}
-            />
-          </Box>
+          {
+          hasPawtals 
+            ? (<Box width="100%">
+              <Pawtals text={"unopened"}/>
+              <Pawtals text={"unopened"}/>
+            </Box>)
+            : (
+            <Box margin="0 auto">
+              <Typography
+                variant="h5"
+                fontWeight="700"
+                sx={{ pl: 3, pt: 1, color: "#fff" }}
+                letterSpacing={"4px"}
+              >
+                You don’t have any Pawtals
+              </Typography>
+              <Box
+                display="flex"
+                flexDirection="row"
+                marginTop="24px"
+                justifyContent={"center"}
+              >
+                <img
+                  src={UnOpenPaw}
+                  alt="unopened pawtels"
+                  className={classes.statusLogoimg}
+                />
+                <KittyVerseRoundedButton
+                  name="Claim a Pawtal"
+                  type="green"
+                  btnclass={classes.claimPawtal}
+                  onclick={() => {}}
+                />
+              </Box>
+            </Box>)
+          }
         </Box>
       </Box>
     </Box>
