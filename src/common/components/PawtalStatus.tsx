@@ -21,12 +21,21 @@ const useStyles = makeStyles({
       },
     },
   },
+  selected: {
+    fontSize: 16,
+    marginLeft: 15,
+    color: "#60C0C2",
+    fontWeight: 700
+  }, 
 });
 
-export default function PawtalStatus(props: { text: string; count: string }) {
-  const { text } = props;
-  const { count } = props;
+export default function PawtalStatus(props: { text: string; count: number, selected: boolean, onSelect: (tab: string) => void }) {
+  const { text, count, selected } = props;
   const classes = useStyles();
+  const clickEnabled = count > 0;
+  const onSelectHandler = () => {
+    clickEnabled && props.onSelect(text);
+  };
   return (
     <Box
       sx={{
@@ -38,7 +47,8 @@ export default function PawtalStatus(props: { text: string; count: string }) {
         cursor: "pointer",
         margin: "20px 0 20px 20px",
       }}
-      className={classes.outWrapper}
+      className={clickEnabled ? classes.outWrapper : ""}
+      onClick={onSelectHandler}
     >
       <img
         style={{ maxWidth: "100%" }}
@@ -46,7 +56,7 @@ export default function PawtalStatus(props: { text: string; count: string }) {
         alt="unopened pawtels"
         className={classes.statusLogoimg}
       />
-      <span className={classes.statusText}>
+      <span className={(clickEnabled && selected) ? classes.selected : classes.statusText}>
         {text === "unopened" ? "Unopened Pawtals" : "Opened Pawtals"} ({count})
       </span>
     </Box>

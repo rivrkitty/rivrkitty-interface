@@ -5,6 +5,7 @@ import PawtalStatus from "../common/components/PawtalStatus";
 import Pawtals from "../common/components/Pawtals";
 import UnOpenPaw from "../assets/unopen-paw-small.svg";
 import KittyVerseRoundedButton from "../common/components/KittyVerseRoundedButton/KittyVerseRoundedButton";
+import { useState } from "react";
 
 const useStyles = makeStyles(() => ({
   claimPawtal: {
@@ -21,7 +22,15 @@ const useStyles = makeStyles(() => ({
 
 export default function MyPawtals() {
   const classes = useStyles();
-  const hasPawtals = false; // make true to render unopened pawtal cards
+  const [selectedTab, setSelectedTab] = useState("");
+  const [unopenedPawtalsCount, setUnopenedPawtalsCount] = useState(0);
+  const [openedPawtalsCount, setOpenedPawtalsCount] = useState(0);
+  const hasPawtals = (unopenedPawtalsCount + openedPawtalsCount) > 0;
+
+  const onTabSelectHandler = (tab: string) => {
+    setSelectedTab(tab);
+  };
+
   return (
     <Box
       display="flex"
@@ -43,8 +52,8 @@ export default function MyPawtals() {
           justifyContent="flex-start"
           width="100%"
         >
-          <PawtalStatus text={"unopened"} count={"3"} />
-          <PawtalStatus text={"opened"} count={"2"} />
+          <PawtalStatus text={"unopened"} count={unopenedPawtalsCount} selected={selectedTab === "unopened"} onSelect={onTabSelectHandler}/>
+          <PawtalStatus text={"opened"} count={openedPawtalsCount} selected={selectedTab === "opened"}  onSelect={onTabSelectHandler}/>
         </Box>
 
         <Box
@@ -60,8 +69,8 @@ export default function MyPawtals() {
           {
           hasPawtals 
             ? (<Box width="100%">
-              <Pawtals text={"unopened"}/>
-              <Pawtals text={"unopened"}/>
+              <Pawtals text={selectedTab}/>
+              <Pawtals text={selectedTab}/>
             </Box>)
             : (
             <Box margin="0 auto">
