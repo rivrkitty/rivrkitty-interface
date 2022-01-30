@@ -5,26 +5,22 @@ import SectionHeader from "../../common/components/SectionHeader";
 import { getSingleAssetSrc } from "../../utils/getSingleAssetSrc";
 import { useNavigate } from "react-router-dom";
 
-const useStyles = makeStyles(() => ({
-  container: {
-    backgroundColor: "#EA8478",
-    height: "12px",
-    margin: "8px",
-  },
-  skill: {
-    color: "white",
-    backgroundColor: "#60C0C2",
-    textAlign: "right",
-    fontSize: "20px",
-    height: "12px",
-  },
-}));
-export default function MyClaimsSuccess() {
-  const classes = useStyles();
+interface MyClaimsSuccessProps {
+  count: number;
+  type: string;
+}
+
+const defaultProps = {
+  count: 2,
+  type: "GEN ONE EDITION"
+} 
+
+export default function MyClaimsSuccess(props: MyClaimsSuccessProps) {
   let navigate = useNavigate();
   const handleMyPawtalsClick = () => {
     navigate("/kittyverse/mypawtals");
   };
+ 
   return (
     <Box
       display="flex"
@@ -42,7 +38,7 @@ export default function MyClaimsSuccess() {
           variant="h5"
           fontWeight="700"
           sx={{ display: "inline", color: "#EEAB47", textAlign: "center" }}
-        >2 GEN ONE EDITION</Typography> Pawtals
+        >{props.count} {props.type}</Typography> Pawtals
       </Typography>
       <Box sx={{ mt: "18px", mb: "32px" }}>
         <Avatar
@@ -66,3 +62,5 @@ export default function MyClaimsSuccess() {
     </Box>
   );
 }
+
+MyClaimsSuccess.defaultProps = defaultProps;
