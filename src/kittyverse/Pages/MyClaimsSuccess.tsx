@@ -10,11 +10,6 @@ interface MyClaimsSuccessProps {
   type: string;
 }
 
-const defaultProps = {
-  count: 2,
-  type: "GEN ONE EDITION"
-} 
-
 export default function MyClaimsSuccess(props: MyClaimsSuccessProps) {
   let navigate = useNavigate();
   const handleMyPawtalsClick = () => {
@@ -62,5 +57,3 @@ export default function MyClaimsSuccess(props: MyClaimsSuccessProps) {
     </Box>
   );
 }
-
-MyClaimsSuccess.defaultProps = defaultProps;

@@ -31,7 +31,7 @@ export default function MyClaims(props: Props) {
           handleApproveClick={handleClick}
         />
       )
-      : (<MyClaimsSuccess/>)}
+      : (<MyClaimsSuccess count={2} type={"GEN ONE EDITION"}/>)}
     </Box>
   );
 }
