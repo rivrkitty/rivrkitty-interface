@@ -29,8 +29,7 @@ export default function MyPawtals() {
       width="100%"
       padding="10px 2px 10px 20px"
     >
-      <SectionHeader title={"My Pawtals"} />
-
+      <SectionHeader title={"My Pawtals"} claimAmount1={"000.00"} claimAmount2={"000,000,000,000"}  />
       <Box
         bgcolor="#000"
         display="flex"

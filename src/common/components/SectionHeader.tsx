@@ -26,8 +26,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SectionHeader(props: { title: string }) {
-  const { title } = props;
+export default function SectionHeader(props: { title: string, claimAmount1: string, claimAmount2: string }) {
+  const { title, claimAmount1, claimAmount2 } = props;
   const classes = useStyles();
   return (
     <Box
@@ -80,7 +80,7 @@ export default function SectionHeader(props: { title: string }) {
                   marginRight: "30px",
                 }}
               />
-              <span>000.00</span>
+              <span>{claimAmount1}</span>
             </>
           </PriceTickerButton>
 
@@ -100,7 +100,7 @@ export default function SectionHeader(props: { title: string }) {
                   marginRight: "30px",
                 }}
               />
-              <span>000,000,000,000</span>
+              <span>{claimAmount2}</span>
             </>
           </PriceTickerButton>
         </>

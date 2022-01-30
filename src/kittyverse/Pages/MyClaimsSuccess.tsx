@@ -28,7 +28,7 @@ export default function MyClaimsSuccess(props: MyClaimsSuccessProps) {
       alignItems={"center"}
       width="100%"
     >
-      <SectionHeader title={"Pawtal Claim"} />
+      <SectionHeader title={"Pawtal Claim"}  claimAmount1={"000.00"} claimAmount2={"000,000,000,000"} />
       <Typography
         variant="h5"
         fontWeight="700"
